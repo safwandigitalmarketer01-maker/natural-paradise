@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Natural Paradise – Luxury Perfumes & Professional Hair Colours</title>
+  <meta name="description" content="Discover Natural Paradise — your destination for exclusive luxury perfumes, Arabic oud collections, signature fragrances, custom perfume blending, and professional hair colour ranges. Shop online with free shipping over $150.">
+  <meta name="keywords" content="luxury perfumes, Arabic oud, signature fragrance, hair colour, natural paradise, custom perfume blending, salon hair colour, oriental perfume">
+  <meta name="author" content="Natural Paradise">
+  <meta property="og:title" content="Natural Paradise – Luxury Perfumes & Professional Hair Colours">
+  <meta property="og:description" content="Exclusive luxury perfumes, Arabic oud collections, custom blends, and professional hair colour for those who demand the finest.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/hero_banner.jpg">
+  <meta name="theme-color" content="#C5A259">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ANNOUNCEMENT BAR
+════════════════════════════════════════════════════════════ -->
+<div id="announcement-bar" class="announcement-bar">
+  <span>✨ Free Shipping on Orders Over $150</span>
+  <span>|</span>
+  <span>🌿 Use code <strong>PARADISE10</strong> for 10% off your first order</span>
+  <span>|</span>
+  <span>📞 WhatsApp Orders Available 24/7</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════════════ -->
+<header id="site-header" class="site-header">
+  <div class="header-inner">
+
+    <!-- Logo -->
+    <a href="#" class="header-logo" aria-label="Natural Paradise Home">
+      <span class="logo-text">Natural Paradise</span>
+      <span class="logo-sub">Luxury Perfumes & Hair Colours</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="header-nav" aria-label="Main navigation">
+      <div class="dropdown">
+        <a href="#perfumes-section" class="nav-item active">Perfumes</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#perfumes-section" onclick="NP.setCategory('signature')">✨ Signature Collection</a>
+          <a class="dropdown-item" href="#perfumes-section" onclick="NP.setCategory('luxury')">💎 Luxury Perfumes</a>
+          <a class="dropdown-item" href="#perfumes-section" onclick="NP.setCategory('arabic')">🪵 Arabic Perfumes</a>
+          <a class="dropdown-item" href="#perfumes-section" onclick="NP.setCategory('mens')">🎩 Men's Collection</a>
+          <a class="dropdown-item" href="#perfumes-section" onclick="NP.setCategory('womens')">🌸 Women's Collection</a>
+          <a class="dropdown-item" href="#perfumes-section" onclick="NP.setCategory('unisex')">♾ Unisex Collection</a>
+          <a class="dropdown-item" href="#mixing-section">🧪 Custom Blending</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <a href="#haircolour-section" class="nav-item">Hair Colours</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#haircolour-section" onclick="NP.setCategory('professional')">💼 Professional Series</a>
+          <a class="dropdown-item" href="#haircolour-section" onclick="NP.setCategory('salon')">🪄 Salon Collection</a>
+          <a class="dropdown-item" href="#haircolour-section" onclick="NP.setCategory('haircare')">💆 Hair Care</a>
+          <a class="dropdown-item" href="#shade-guide-section">🎨 Shade Guide</a>
+        </div>
+      </div>
+      <a href="#bestsellers-section" class="nav-item">Best Sellers</a>
+      <a href="#mixing-section" class="nav-item">Custom Blends</a>
+      <a href="#brand-story" class="nav-item">Our Story</a>
+    </nav>
+
+    <!-- Search + Actions -->
+    <div class="header-actions">
+      <div class="search-bar" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" id="search-input" placeholder="Search perfumes, scents…" aria-label="Search products"
+               oninput="NP.handleSearch(this.value)" onfocus="NP.handleSearch(this.value)">
+        <div id="search-results" class="search-results" role="listbox"></div>
+      </div>
+
+      <button id="wishlist-btn" class="header-icon-btn" onclick="NP.openWishlist()" aria-label="Open wishlist" title="Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="badge-count wishlist-count" style="display:none">0</span>
+      </button>
+
+      <button id="cart-btn" class="header-icon-btn" onclick="NP.openCart()" aria-label="Open shopping cart" title="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="badge-count cart-count" style="display:none">0</span>
+      </button>
+
+      <button class="mobile-menu-btn header-icon-btn" onclick="NP.openMobileMenu()" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation -->
+<div id="mobile-nav-overlay" class="mobile-nav-overlay" onclick="NP.closeMobileMenu()" style="display:none"></div>
+<nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+    <span class="logo-text" style="font-size:1.2rem">Natural Paradise</span>
+    <button class="header-icon-btn" onclick="NP.closeMobileMenu()" aria-label="Close menu">✕</button>
+  </div>
+  <a class="mobile-nav-item" href="#perfumes-section" onclick="NP.closeMobileMenu()">✨ Perfumes</a>
+  <a class="mobile-nav-item" href="#haircolour-section" onclick="NP.closeMobileMenu()">💄 Hair Colours</a>
+  <a class="mobile-nav-item" href="#bestsellers-section" onclick="NP.closeMobileMenu()">🏆 Best Sellers</a>
+  <a class="mobile-nav-item" href="#mixing-section" onclick="NP.closeMobileMenu()">🧪 Custom Blends</a>
+  <a class="mobile-nav-item" href="#shade-guide-section" onclick="NP.closeMobileMenu()">🎨 Shade Guide</a>
+  <a class="mobile-nav-item" href="#brand-story" onclick="NP.closeMobileMenu()">📖 Our Story</a>
+  <a class="mobile-nav-item" href="#faq-section" onclick="NP.closeMobileMenu()">❓ FAQ</a>
+  <div style="margin-top:auto;padding-top:1.5rem;border-top:1px solid var(--color-border)">
+    <button class="btn btn-whatsapp btn-block" onclick="NP.whatsappFloat()">📱 Order on WhatsApp</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO SECTION
+════════════════════════════════════════════════════════════ -->
+<section class="hero" id="home" aria-label="Hero banner">
+  <div class="hero-bg">
+    <img src="assets/hero_banner.jpg" alt="Natural Paradise luxury perfume collection on dark marble" fetchpriority="high">
+  </div>
+  <div class="container">
+    <div class="hero-content animate-fadeInUp">
+      <div class="hero-eyebrow">Natural Paradise Exclusive</div>
+      <h1>Discover Your<br><em>Signature Fragrance</em></h1>
+      <p class="hero-sub">Immerse yourself in a world of luxury perfumes, authentic Arabic ouds, and professional hair colours — crafted for those who demand the extraordinary.</p>
+      <div class="hero-ctas">
+        <a href="#perfumes-section" class="btn btn-primary btn-lg" id="shop-perfumes-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          Shop Perfumes
+        </a>
+        <a href="#haircolour-section" class="btn btn-outline btn-lg" id="shop-hair-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          Shop Hair Colours
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">500+</div><div class="hero-stat-label">Fragrances</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">50K+</div><div class="hero-stat-label">Happy Clients</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">15+</div><div class="hero-stat-label">Years Crafting</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">4.9★</div><div class="hero-stat-label">Avg. Rating</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-indicator" aria-hidden="true">
+    <div class="scroll-dot"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FEATURED COLLECTIONS SPLIT
+════════════════════════════════════════════════════════════ -->
+<section class="featured-split" id="featured-section" aria-label="Featured collections">
+  <div class="featured-panel" onclick="document.getElementById('perfumes-section').scrollIntoView({behavior:'smooth'})">
+    <img src="assets/signature_perfume.jpg" alt="Natural Paradise Signature Perfume Collection">
+    <div class="featured-panel-content">
+      <div class="featured-panel-label">✨ Exclusive · 2026 Collection</div>
+      <h2 class="featured-panel-title">Signature Perfumes</h2>
+      <p class="featured-panel-sub">From Cambodian oud to Taif rose, explore our most coveted fragrances — crafted for legendary first impressions.</p>
+      <button class="btn btn-primary">Explore Collection</button>
+    </div>
+  </div>
+  <div class="featured-panel" onclick="document.getElementById('haircolour-section').scrollIntoView({behavior:'smooth'})">
+    <img src="assets/hair_colour.jpg" alt="Natural Paradise Professional Hair Colour Collection">
+    <div class="featured-panel-content">
+      <div class="featured-panel-label">💎 Professional · Salon Grade</div>
+      <h2 class="featured-panel-title">Hair Colours</h2>
+      <p class="featured-panel-sub">Salon-quality permanent hair colours, glosses, and care treatments — achieve stunning results at home or in the salon.</p>
+      <button class="btn btn-outline">View Shades</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     WHY CHOOSE NATURAL PARADISE
+════════════════════════════════════════════════════════════ -->
+<section class="section section-sm" id="why-choose-section" aria-labelledby="why-heading">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">The Natural Paradise Promise</span>
+      <h2 class="section-title" id="why-heading">Why Choose Natural Paradise</h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">🌿</div>
+        <h4>100% Authentic Ingredients</h4>
+        <p>Every fragrance uses genuine, sustainably sourced ingredients — from Taif roses to Cambodian oud and Grade-A sandalwood.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">⏳</div>
+        <h4>Exceptional Longevity</h4>
+        <p>Our luxury formulations are built to last. Expect 10–14 hours of fragrance trail with an exceptional sillage that turns heads.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🧪</div>
+        <h4>Custom Perfume Creation</h4>
+        <p>Design your one-of-a-kind signature scent with our bespoke perfume mixing service — a truly personal luxury experience.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🛡️</div>
+        <h4>Secure & Trusted</h4>
+        <p>Shop with confidence. Secure payments, discreet packaging, WhatsApp order support, and a 100% satisfaction guarantee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SHOP BY FRAGRANCE FAMILY
+════════════════════════════════════════════════════════════ -->
+<section class="section section-sm" id="fragrance-family-section" aria-labelledby="family-heading">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">Explore by Scent</span>
+      <h2 class="section-title" id="family-heading">Shop by Fragrance Family</h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="fragrance-grid">
+      <div class="fragrance-card reveal" data-family="Oud" onclick="NP.setFamily('Oud')">
+        <div class="fragrance-icon">🪵</div>
+        <div class="fragrance-name">Oud</div>
+        <div class="fragrance-count">4 fragrances</div>
+      </div>
+      <div class="fragrance-card reveal" data-family="Floral" onclick="NP.setFamily('Floral')">
+        <div class="fragrance-icon">🌸</div>
+        <div class="fragrance-name">Floral</div>
+        <div class="fragrance-count">5 fragrances</div>
+      </div>
+      <div class="fragrance-card reveal" data-family="Woody" onclick="NP.setFamily('Woody')">
+        <div class="fragrance-icon">🌲</div>
+        <div class="fragrance-name">Woody</div>
+        <div class="fragrance-count">3 fragrances</div>
+      </div>
+      <div class="fragrance-card reveal" data-family="Fresh" onclick="NP.setFamily('Fresh')">
+        <div class="fragrance-icon">💨</div>
+        <div class="fragrance-name">Fresh</div>
+        <div class="fragrance-count">2 fragrances</div>
+      </div>
+      <div class="fragrance-card reveal" data-family="Citrus" onclick="NP.setFamily('Citrus')">
+        <div class="fragrance-icon">🍋</div>
+        <div class="fragrance-name">Citrus</div>
+        <div class="fragrance-count">2 fragrances</div>
+      </div>
+      <div class="fragrance-card reveal" data-family="Oriental" onclick="NP.setFamily('Oriental')">
+        <div class="fragrance-icon">🕌</div>
+        <div class="fragrance-name">Oriental</div>
+        <div class="fragrance-count">3 fragrances</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAIN SHOP SECTION — ALL PRODUCTS
+════════════════════════════════════════════════════════════ -->
+<section class="section" id="shop-section" aria-labelledby="shop-heading">
+  <div class="container">
+    <div class="section-header flex-between" style="flex-wrap:wrap;gap:1.5rem">
+      <div>
+        <span class="section-label">Our Collections</span>
+        <h2 class="section-title" id="shop-heading">Shop All Products</h2>
+      </div>
+      <div class="category-pills">
+        <button class="pill active" data-cat="all" onclick="NP.setCategory('all')" id="cat-all">All</button>
+        <button class="pill" data-cat="signature" onclick="NP.setCategory('signature')" id="cat-signature">Signature</button>
+        <button class="pill" data-cat="luxury" onclick="NP.setCategory('luxury')" id="cat-luxury">Luxury</button>
+        <button class="pill" data-cat="arabic" onclick="NP.setCategory('arabic')" id="cat-arabic">Arabic</button>
+        <button class="pill" data-cat="mens" onclick="NP.setCategory('mens')" id="cat-mens">Men's</button>
+        <button class="pill" data-cat="womens" onclick="NP.setCategory('womens')" id="cat-womens">Women's</button>
+        <button class="pill" data-cat="unisex" onclick="NP.setCategory('unisex')" id="cat-unisex">Unisex</button>
+        <button class="pill" data-cat="professional" onclick="NP.setCategory('professional')" id="cat-professional">Hair Pro</button>
+        <button class="pill" data-cat="salon" onclick="NP.setCategory('salon')" id="cat-salon">Salon</button>
+        <button class="pill" data-cat="haircare" onclick="NP.setCategory('haircare')" id="cat-haircare">Hair Care</button>
+      </div>
+    </div>
+    <div id="products-grid" class="products-wrapper" role="list" aria-label="Product listing"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PERFUMES SECTION
+════════════════════════════════════════════════════════════ -->
+<section class="section section-sm" id="perfumes-section" aria-labelledby="perfumes-heading">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">Exclusive · Handcrafted · Luxurious</span>
+      <h2 class="section-title" id="perfumes-heading">The Signature Perfume Collection</h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Each bottle holds a story — a journey across ancient spice routes, tropical gardens, and the mystic Arabian desert. Discover your chapter.</p>
+    </div>
+    <div style="display:flex;justify-content:center;margin-bottom:2.5rem">
+      <button class="btn btn-primary" onclick="NP.setCategory('signature');document.getElementById('shop-section').scrollIntoView({behavior:'smooth'})">
+        Explore All Perfumes
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BEST SELLERS
+════════════════════════════════════════════════════════════ -->
+<section class="section section-sm" id="bestsellers-section" aria-labelledby="bestsellers-heading">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">Most Loved</span>
+      <h2 class="section-title" id="bestsellers-heading">Best Sellers</h2>
+      <div class="gold-line"></div>
+    </div>
+    <div id="bestsellers-grid" class="products-wrapper">
+      <!-- Rendered by JS: products with badge=Bestseller -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HAIR COLOUR SECTION
+════════════════════════════════════════════════════════════ -->
+<section class="section" id="haircolour-section" aria-labelledby="haircolour-heading" style="background:linear-gradient(135deg,var(--color-dark-2),var(--color-dark-3))">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">Professional · Salon Grade · Long-Lasting</span>
+      <h2 class="section-title" id="haircolour-heading">Professional Hair Colour Collection</h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Transform your look with our professional-grade permanent hair colour. 100% grey coverage, rich pigment, brilliant shine — designed for salon results at home.</p>
+    </div>
+    <div id="haircolour-grid" class="products-wrapper">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SHADE GUIDE
+════════════════════════════════════════════════════════════ -->
+<section class="section section-sm" id="shade-guide-section" aria-labelledby="shade-guide-heading">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">Find Your Perfect Match</span>
+      <h2 class="section-title" id="shade-guide-heading">Hair Colour Shade Guide</h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Click on a shade to explore your perfect match. Our experts crafted each tone for maximum vibrancy, coverage, and longevity.</p>
+    </div>
+
+    <!-- Shade Category Tabs -->
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem">
+      <button class="pill active" id="shade-cat-all" onclick="filterShades('all')">All Shades</button>
+      <button class="pill" onclick="filterShades('Black')">Black</button>
+      <button class="pill" onclick="filterShades('Brown')">Brown</button>
+      <button class="pill" onclick="filterShades('Blonde')">Blonde</button>
+      <button class="pill" onclick="filterShades('Red')">Red</button>
+    </div>
+
+    <div id="shade-guide-grid" class="shade-guide-grid" role="radiogroup" aria-label="Hair shade selection"></div>
+
+    <div id="shade-result" class="shade-result" aria-live="polite">
+      <div class="shade-result-inner">
+        <div id="shade-preview-circle" class="shade-preview" role="img" aria-label="Selected shade preview"></div>
+        <div class="shade-info">
+          <h4 id="shade-result-name">Selected Shade</h4>
+          <p id="shade-result-code">Choose a shade above</p>
+          <button id="shade-shop-btn" class="btn btn-primary btn-sm" style="display:none">Shop This Shade</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CUSTOM PERFUME MIXING SERVICE
+════════════════════════════════════════════════════════════ -->
+<section class="section mixing-section" id="mixing-section" aria-labelledby="mixing-heading">
+  <div class="container">
+    <div class="mixing-layout">
+      <!-- Visual -->
+      <div class="mixing-visual reveal">
+        <div class="mixing-bottle" id="mixing-bottle">
+          <div style="font-size:2rem">🧪</div>
+          <div class="mixing-bottle-label" id="mixing-bottle-name">Your Signature Blend</div>
+          <div class="mixing-notes-list">
+            <div class="mixing-note-entry empty" id="mixer-top-note">— Select Top Note —</div>
+            <div class="mixing-note-entry empty" id="mixer-mid-note">— Select Heart Note —</div>
+            <div class="mixing-note-entry empty" id="mixer-base-note">— Select Base Note —</div>
+          </div>
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-dim);margin-top:0.75rem">Natural Paradise</div>
+        </div>
+      </div>
+      <!-- UI -->
+      <div class="mixing-ui reveal">
+        <span class="section-label">Bespoke Fragrance Service</span>
+        <h2 class="section-title" id="mixing-heading">Create Your<br><em>Signature Blend</em></h2>
+        <p style="font-size:0.9rem;margin-bottom:2rem">Design a completely personalised perfume by selecting your preferred scent notes. Our master perfumers will craft your unique creation by hand in 50ml of pure luxury.</p>
+
+        <!-- Top Notes -->
+        <span class="mixing-section-label">① Top Notes (First Impression)</span>
+        <div class="mixing-notes-grid" id="mixer-top-grid">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Middle Notes -->
+        <span class="mixing-section-label">② Heart Notes (The Soul)</span>
+        <div class="mixing-notes-grid" id="mixer-middle-grid">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Base Notes -->
+        <span class="mixing-section-label">③ Base Notes (The Foundation)</span>
+        <div class="mixing-notes-grid" id="mixer-base-grid">
+          <!-- Rendered by JS -->
+        </div>
+
+        <input class="mixing-name-input" id="mixer-name-input" type="text" placeholder="Name your creation (e.g. Desert Sunrise)…" aria-label="Name your custom perfume">
+        <div class="mixing-price" id="mixer-price">Custom Blend Price: <strong>$75</strong> <span style="font-size:0.75rem">(base price for 50ml)</span></div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="NP.addMixToCart()" id="mixer-add-cart-btn">
+            🛒 Add Custom Blend to Cart
+          </button>
+          <button class="btn btn-whatsapp" onclick="NP.whatsappFloat()">
+            📱 Order via WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     LIMITED TIME OFFERS
+════════════════════════════════════════════════════════════ -->
+<section class="offers-banner" id="offers-section" aria-label="Limited time offer">
+  <div class="container">
+    <div class="offers-inner">
+      <div class="offer-badge-large">10%<br>OFF</div>
+      <div class="offer-content">
+        <h3>Limited-Time Offer: 10% Off All Signature Perfumes</h3>
+        <p>Use code <strong style="color:var(--color-gold)">PARADISE10</strong> at checkout. Don't miss your chance to own a piece of luxury at an exceptional value. Offer ends soon!</p>
+      </div>
+      <div class="countdown" aria-label="Countdown timer">
+        <div class="countdown-unit"><span class="countdown-num" id="cd-days">02</span><span class="countdown-label">Days</span></div>
+        <div class="countdown-unit"><span class="countdown-num" id="cd-hours">06</span><span class="countdown-label">Hours</span></div>
+        <div class="countdown-unit"><span class="countdown-num" id="cd-mins">00</span><span class="countdown-label">Mins</span></div>
+        <div class="countdown-unit"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-label">Secs</span></div>
+      </div>
+      <button class="btn btn-primary" onclick="NP.setCategory('signature');document.getElementById('shop-section').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TESTIMONIALS
+════════════════════════════════════════════════════════════ -->
+<section class="section" id="testimonials-section" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">From Our Community</span>
+      <h2 class="section-title" id="testimonials-heading">What Our Customers Say</h2>
+      <div class="gold-line"></div>
+    </div>
+    <div id="testimonials-grid" class="testimonials-track">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BRAND STORY
+════════════════════════════════════════════════════════════ -->
+<section class="section brand-story" id="brand-story" aria-labelledby="brand-heading">
+  <div class="container">
+    <div class="brand-story-layout">
+      <div class="brand-story-image reveal">
+        <img src="assets/signature_perfume.jpg" alt="Natural Paradise perfumery heritage and craftsmanship" loading="lazy">
+      </div>
+      <div class="brand-story-content reveal">
+        <span class="section-label">Our Heritage</span>
+        <h2 class="section-title" id="brand-heading">Rooted in Nature.<br>Refined in Luxury.</h2>
+        <div class="gold-line" style="margin:0 0 1.5rem 0"></div>
+        <p>Natural Paradise was born from a deep reverence for the ancient art of perfumery. Founded over fifteen years ago by master perfumers with roots spanning the Arabian Gulf, the Indian subcontinent, and the South of France, we blend time-honoured traditions with modern luxury sensibilities.</p>
+        <p>Every fragrance in our collection begins its journey in the fields — from Taif rose harvests at dawn to oud forests in Cambodia, the spice markets of Zanzibar to the white neroli groves of Sicily. We believe the finest ingredients are not found in laboratories, but in nature.</p>
+        <p>Our professional hair colour range was developed alongside leading salon scientists to deliver truly professional results — because every aspect of your personal expression deserves the same devotion to quality.</p>
+        <div class="brand-values">
+          <div class="brand-value"><div class="brand-value-icon">🌿</div><div class="brand-value-text"><strong>Natural Sourcing</strong>All ingredients ethically and sustainably sourced</div></div>
+          <div class="brand-value"><div class="brand-value-icon">🤝</div><div class="brand-value-text"><strong>Artisan Craft</strong>Hand-blended by master perfumers</div></div>
+          <div class="brand-value"><div class="brand-value-icon">💎</div><div class="brand-value-text"><strong>Uncompromising Quality</strong>No shortcuts. No compromises</div></div>
+          <div class="brand-value"><div class="brand-value-icon">🌍</div><div class="brand-value-text"><strong>Global Heritage</strong>Inspired by fragrances from around the world</div></div>
+        </div>
+        <button class="btn btn-primary" onclick="NP.whatsappFloat()">📱 Connect with Us</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     RECENTLY VIEWED
+════════════════════════════════════════════════════════════ -->
+<section class="section section-sm" id="recently-viewed-section" style="display:none" aria-labelledby="recent-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Your Journey</span>
+      <h2 class="section-title" id="recent-heading">Recently Viewed</h2>
+    </div>
+    <div id="recently-viewed-products" class="products-wrapper"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     INSTAGRAM GALLERY
+════════════════════════════════════════════════════════════ -->
+<section class="section section-sm" id="instagram-section" aria-labelledby="instagram-heading">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">Follow the Journey</span>
+      <h2 class="section-title" id="instagram-heading">@NaturalParadiseOfficial</h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Follow us on Instagram for daily fragrance inspiration, behind-the-scenes craftsmanship, and exclusive community offers.</p>
+    </div>
+    <div class="instagram-grid" role="list" aria-label="Instagram gallery">
+      <div class="instagram-item" role="listitem" aria-label="Instagram post 1"><img src="assets/hero_banner.jpg" alt="Natural Paradise Instagram — luxury perfume arrangement" loading="lazy"></div>
+      <div class="instagram-item" role="listitem" aria-label="Instagram post 2"><img src="assets/signature_perfume.jpg" alt="Natural Paradise Instagram — signature perfume bottle" loading="lazy"></div>
+      <div class="instagram-item" role="listitem" aria-label="Instagram post 3"><img src="assets/hair_colour.jpg" alt="Natural Paradise Instagram — hair colour professional packaging" loading="lazy"></div>
+      <div class="instagram-item" role="listitem" aria-label="Instagram post 4"><img src="assets/signature_perfume.jpg" alt="Natural Paradise Instagram — Arabic collection oud" loading="lazy"></div>
+      <div class="instagram-item" role="listitem" aria-label="Instagram post 5"><img src="assets/hero_banner.jpg" alt="Natural Paradise Instagram — lifestyle luxury" loading="lazy"></div>
+      <div class="instagram-item" role="listitem" aria-label="Instagram post 6"><img src="assets/hair_colour.jpg" alt="Natural Paradise Instagram — before and after results" loading="lazy"></div>
+    </div>
+    <div style="text-align:center;margin-top:2rem">
+      <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline" id="instagram-follow-btn">
+        📸 Follow on Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FAQ
+════════════════════════════════════════════════════════════ -->
+<section class="section" id="faq-section" aria-labelledby="faq-heading" style="background:linear-gradient(135deg,var(--color-dark-2),var(--color-dark-3))">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">Got Questions?</span>
+      <h2 class="section-title" id="faq-heading">Frequently Asked Questions</h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="faq-list" role="list">
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" onclick="NP.toggleFaq(this)" aria-expanded="false" id="faq-q1">
+          How long do Natural Paradise perfumes last?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region" aria-labelledby="faq-q1">
+          <div class="faq-answer-inner">Our luxury perfumes are formulated for exceptional longevity. Most of our Signature and Arabic collections last between 12–14+ hours with strong sillage. Our fresh and citrus fragrances typically project for 8–10 hours. For best results, apply to pulse points (wrists, neck, behind ears) on moisturised skin.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" onclick="NP.toggleFaq(this)" aria-expanded="false" id="faq-q2">
+          What is the Custom Perfume Mixing Service?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region" aria-labelledby="faq-q2">
+          <div class="faq-answer-inner">Our bespoke perfume creation service allows you to design your very own signature fragrance. Using our interactive mixer, you select your preferred top, heart, and base notes. Our master perfumers will then craft your unique blend by hand in a 50ml bottle. Custom blends start from $75 and make extraordinary personalised gifts.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" onclick="NP.toggleFaq(this)" aria-expanded="false" id="faq-q3">
+          Are your hair colours suitable for home use?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region" aria-labelledby="faq-q3">
+          <div class="faq-answer-inner">Our Professional Series is specifically formulated to be safe and effective for home use, with clear instructions included. Our Salon Collection is designed for professional use and requires knowledge of colour theory. We always recommend a patch test 48 hours before full application. For personalised advice, contact us via WhatsApp.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" onclick="NP.toggleFaq(this)" aria-expanded="false" id="faq-q4">
+          Do you offer international shipping?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region" aria-labelledby="faq-q4">
+          <div class="faq-answer-inner">Yes! We ship worldwide. Free shipping is available on all orders over $150. Standard international shipping typically takes 5–10 business days. We offer express shipping to most Gulf countries, UK, USA, Europe, and South Asia within 2–4 business days. All orders are packaged in discreet, luxurious gift boxes.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" onclick="NP.toggleFaq(this)" aria-expanded="false" id="faq-q5">
+          Can I order via WhatsApp?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region" aria-labelledby="faq-q5">
+          <div class="faq-answer-inner">Absolutely! Our WhatsApp ordering service is available 24/7. Simply click the WhatsApp button on any product page or the floating button on the bottom left, and our team will assist you with product selection, order placement, and payment. We accept bank transfers, credit/debit cards, and cash on delivery in selected regions.</div>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" onclick="NP.toggleFaq(this)" aria-expanded="false" id="faq-q6">
+          Are Natural Paradise products cruelty-free?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" role="region" aria-labelledby="faq-q6">
+          <div class="faq-answer-inner">Yes. Natural Paradise is proud to be 100% cruelty-free. We never test on animals and work exclusively with certified cruelty-free ingredient suppliers. Our perfumes contain no animal-derived ingredients (with the exception of natural ambergris alternatives, which are fully synthetic). Our hair colour range uses only responsibly sourced pigments.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NEWSLETTER
+════════════════════════════════════════════════════════════ -->
+<section class="section newsletter" id="newsletter-section" aria-labelledby="newsletter-heading">
+  <div class="container">
+    <div class="newsletter-inner">
+      <span class="section-label">Join the Inner Circle</span>
+      <h2 class="section-title" id="newsletter-heading">Get Exclusive Access</h2>
+      <div class="gold-line"></div>
+      <p>Be the first to know about new arrivals, limited editions, private sales, and fragrance education. Subscribers get an exclusive 15% off their first order.</p>
+      <form class="newsletter-form" onsubmit="NP.subscribeNewsletter(event)" novalidate>
+        <input class="newsletter-input" id="newsletter-email" type="email" placeholder="Your email address" aria-label="Email address for newsletter" required>
+        <button type="submit" class="btn btn-primary" id="newsletter-submit-btn">
+          Subscribe
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </form>
+      <p style="font-size:0.72rem;margin-top:0.75rem">No spam, ever. Unsubscribe at any time. We respect your privacy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PREMIUM FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer class="site-footer" id="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo-text">Natural Paradise</span>
+        <span class="footer-logo-sub">Luxury Perfumes & Hair Colours</span>
+        <p class="footer-desc">Crafting extraordinary fragrances and professional hair colour solutions for those who live for the finest things. Every bottle is a work of art.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">📸</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">📘</a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">🎵</a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">▶️</a>
+          <a href="#" onclick="NP.whatsappFloat()" class="social-btn" aria-label="WhatsApp">📱</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Perfumes</h5>
+        <ul>
+          <li><a href="#perfumes-section" onclick="NP.setCategory('signature')">Signature Collection</a></li>
+          <li><a href="#perfumes-section" onclick="NP.setCategory('luxury')">Luxury Perfumes</a></li>
+          <li><a href="#perfumes-section" onclick="NP.setCategory('arabic')">Arabic Perfumes</a></li>
+          <li><a href="#perfumes-section" onclick="NP.setCategory('mens')">Men's Collection</a></li>
+          <li><a href="#perfumes-section" onclick="NP.setCategory('womens')">Women's Collection</a></li>
+          <li><a href="#perfumes-section" onclick="NP.setCategory('unisex')">Unisex Collection</a></li>
+          <li><a href="#mixing-section">Custom Blending</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Hair Colours</h5>
+        <ul>
+          <li><a href="#haircolour-section" onclick="NP.setCategory('professional')">Professional Series</a></li>
+          <li><a href="#haircolour-section" onclick="NP.setCategory('salon')">Salon Collection</a></li>
+          <li><a href="#haircolour-section" onclick="NP.setCategory('haircare')">Hair Care</a></li>
+          <li><a href="#shade-guide-section">Shade Guide</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#faq-section">FAQ</a></li>
+          <li><a href="#" onclick="NP.whatsappFloat()">WhatsApp Support</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Returns & Refunds</a></li>
+          <li><a href="#">Track Your Order</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#brand-story">Our Story</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press & Media</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-badges">
+          <span class="footer-badge">🔒 SSL Secure</span>
+          <span class="footer-badge">🐰 Cruelty-Free</span>
+          <span class="footer-badge">🌿 Natural Ingredients</span>
+          <span class="footer-badge">📦 Free Returns</span>
+        </div>
+        <p style="margin-top:0.75rem">© 2026 Natural Paradise. All rights reserved. Crafted with passion for the extraordinary.</p>
+      </div>
+      <div class="payment-icons" aria-label="Accepted payment methods">
+        <span class="payment-icon" title="Visa">💳</span>
+        <span class="payment-icon" title="Mastercard">💳</span>
+        <span class="payment-icon" title="PayPal">🅿️</span>
+        <span class="payment-icon" title="Apple Pay">🍎</span>
+        <span class="payment-icon" title="Google Pay">🅶</span>
+        <span class="payment-icon" title="Cash on Delivery">💵</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CART SIDE PANEL
+════════════════════════════════════════════════════════════ -->
+<div id="panel-overlay" class="panel-overlay" onclick="NP.closePanelOverlay()" role="presentation"></div>
+
+<aside id="cart-panel" class="side-panel" role="complementary" aria-label="Shopping cart">
+  <div class="panel-header">
+    <h2 class="panel-title">🛒 Shopping Cart</h2>
+    <button class="panel-close" onclick="NP.closeCart()" aria-label="Close cart">✕</button>
+  </div>
+  <div id="cart-body" class="panel-body"></div>
+  <div id="cart-footer" class="panel-footer"></div>
+</aside>
+
+<!-- ═══════════════════════════════════════════════════════════
+     WISHLIST SIDE PANEL
+════════════════════════════════════════════════════════════ -->
+<aside id="wishlist-panel" class="side-panel" role="complementary" aria-label="Wishlist">
+  <div class="panel-header">
+    <h2 class="panel-title">❤️ Wishlist</h2>
+    <button class="panel-close" onclick="NP.closeWishlist()" aria-label="Close wishlist">✕</button>
+  </div>
+  <div id="wishlist-body" class="panel-body"></div>
+</aside>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PRODUCT DETAIL MODAL
+════════════════════════════════════════════════════════════ -->
+<div id="product-modal" class="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+  <div class="product-modal-bg" onclick="NP.closeProductModal()"></div>
+  <div class="product-modal-content">
+    <!-- Image Side -->
+    <div class="modal-image-side">
+      <button class="modal-close" onclick="NP.closeProductModal()" aria-label="Close product detail">✕</button>
+      <div class="modal-main-image">
+        <img id="modal-image" src="" alt="Product image">
+      </div>
+    </div>
+    <!-- Info Side -->
+    <div class="modal-info-side">
+      <div>
+        <div id="modal-cat" class="modal-cat"></div>
+        <h2 id="modal-name" class="modal-name"></h2>
+        <div id="modal-sub" class="modal-sub"></div>
+      </div>
+      <div id="modal-stars" class="product-stars"></div>
+      <div class="modal-price">
+        <span id="modal-price-current" class="price-current"></span>
+        <span id="modal-price-original" class="price-original"></span>
+        <span id="modal-price-save" class="price-save"></span>
+      </div>
+      <p id="modal-desc" class="modal-desc"></p>
+      <div id="modal-notes" class="modal-notes"></div>
+      <div id="modal-specs" class="modal-specs"></div>
+      <div class="modal-actions">
+        <button id="modal-add-cart" class="btn btn-outline">
+          🛒 Add to Cart
+        </button>
+        <button id="modal-buy-now" class="btn btn-primary">
+          ⚡ Buy Now
+        </button>
+        <button id="modal-whatsapp" class="btn btn-whatsapp">
+          📱 Order via WhatsApp
+        </button>
+        <button id="modal-wishlist" class="btn btn-ghost" onclick="NP.updateProductCards()">
+          ❤️ Save to Wishlist
+        </button>
+      </div>
+      <div class="modal-reviews">
+        <div class="modal-reviews-title">Customer Reviews</div>
+        <div id="modal-reviews"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TOAST NOTIFICATIONS
+════════════════════════════════════════════════════════════ -->
+<div id="toast-container" class="toast-container" role="status" aria-live="polite"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FLOATING WHATSAPP BUTTON
+════════════════════════════════════════════════════════════ -->
+<div class="whatsapp-float" onclick="NP.whatsappFloat()" role="button" tabindex="0" aria-label="Order via WhatsApp" onkeydown="if(event.key==='Enter')NP.whatsappFloat()">
+  <div class="whatsapp-float-label">Order on WhatsApp</div>
+  <div class="whatsapp-float-btn">📱</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════════════ -->
+<script src="products.js"></script>
+<script src="app.js"></script>
+<script>
+// ── Initialize remaining sections after DOM is ready ──────────
+document.addEventListener('DOMContentLoaded', function () {
+
+  // ── Best Sellers Grid ────────────────────────────────────────
+  const bsGrid = document.getElementById('bestsellers-grid');
+  if (bsGrid) {
+    const bestSellers = [...(PRODUCTS.perfumes || []), ...(PRODUCTS.hairColours || [])].filter(p => p.badge === 'Bestseller');
+    bsGrid.innerHTML = bestSellers.map(function(p) {
+      const save = p.originalPrice ? Math.round((1 - p.price / p.originalPrice) * 100) : 0;
+      const notes = [...(p.topNotes || []), ...(p.middleNotes || [])].slice(0, 3);
+      return `<div class="product-card reveal" onclick="NP.openProduct('${p.id}')">
+        <div class="product-card-image">
+          <span class="product-badge badge-bestseller">★ Bestseller</span>
+          <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1400,#2a2000)';this.style.display='none'">
+          <div class="product-card-overlay">
+            <button class="card-action-btn" onclick="event.stopPropagation();NP.toggleWishlist('${p.id}')" data-wishlist-btn data-product-id="${p.id}" title="Wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+            <button class="card-action-btn" onclick="event.stopPropagation();NP.addToCart('${p.id}')" title="Add to cart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <span class="product-card-cat">${p.subtitle}</span>
+          <h3 class="product-card-name">${p.name}</h3>
+          ${notes.length ? `<div class="product-notes">${notes.map(n => `<span class="note-tag">${n}</span>`).join('')}</div>` : ''}
+          <div class="product-stars">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))}</div>
+          <div class="product-card-footer">
+            <div class="product-price">
+              <span class="price-current">$${p.price.toFixed(2)}</span>
+              ${p.originalPrice ? `<span class="price-original">$${p.originalPrice.toFixed(2)}</span>` : ''}
+              ${save > 0 ? `<span class="price-save">Save ${save}%</span>` : ''}
+            </div>
+            <div class="product-card-actions">
+              <button class="btn btn-outline" onclick="event.stopPropagation();NP.addToCart('${p.id}')">Add to Cart</button>
+              <button class="btn btn-primary" onclick="event.stopPropagation();NP.buyNow('${p.id}')">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Hair Colour Grid ─────────────────────────────────────────
+  const hcGrid = document.getElementById('haircolour-grid');
+  if (hcGrid) {
+    hcGrid.innerHTML = (PRODUCTS.hairColours || []).map(function(p) {
+      const save = p.originalPrice ? Math.round((1 - p.price / p.originalPrice) * 100) : 0;
+      const badgeCls = {'Bestseller':'badge-bestseller','New':'badge-new','Popular':'badge-popular','Salon Exclusive':'badge-salon','Essential':'badge-essential'}[p.badge] || 'badge-new';
+      return `<div class="product-card reveal" onclick="NP.openProduct('${p.id}')">
+        <div class="product-card-image">
+          ${p.badge ? `<span class="product-badge ${badgeCls}">${p.badge}</span>` : ''}
+          <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1400,#2a2000)';this.style.display='none'">
+          <div class="product-card-overlay">
+            <button class="card-action-btn" onclick="event.stopPropagation();NP.addToCart('${p.id}')" title="Add to cart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <span class="product-card-cat">${p.subtitle}</span>
+          <h3 class="product-card-name">${p.name}</h3>
+          <p class="product-card-sub">${p.shade ? 'Shade ' + p.shade + ' · ' : ''}${p.tone || ''}</p>
+          <div class="product-stars">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))}<span style="font-size:0.72rem;color:var(--color-text-dim);margin-left:0.4rem">(${p.reviews.length})</span></div>
+          <div class="product-card-footer">
+            <div class="product-price">
+              <span class="price-current">$${p.price.toFixed(2)}</span>
+              ${p.originalPrice ? `<span class="price-original">$${p.originalPrice.toFixed(2)}</span>` : ''}
+              ${save > 0 ? `<span class="price-save">Save ${save}%</span>` : ''}
+            </div>
+            <div class="product-card-actions">
+              <button class="btn btn-outline" onclick="event.stopPropagation();NP.addToCart('${p.id}')">Add to Cart</button>
+              <button class="btn btn-primary" onclick="event.stopPropagation();NP.openProduct('${p.id}')">View</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Testimonials Grid ────────────────────────────────────────
+  const testGrid = document.getElementById('testimonials-grid');
+  if (testGrid) {
+    testGrid.innerHTML = (PRODUCTS.testimonials || []).map(t => `
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">${t.comment}</p>
+        <div class="testimonial-footer">
+          <div class="testimonial-avatar">${t.avatar}</div>
+          <div>
+            <div class="testimonial-name">${t.name}</div>
+            <div class="testimonial-loc">📍 ${t.location}</div>
+            <div class="testimonial-product">✨ ${t.product}</div>
+          </div>
+          <div class="product-stars" style="margin-left:auto">${'★'.repeat(t.rating)}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ── Shade Guide ──────────────────────────────────────────────
+  const shadeGrid = document.getElementById('shade-guide-grid');
+  if (shadeGrid) {
+    shadeGrid.innerHTML = (PRODUCTS.shadeGuide || []).map(s => `
+      <div class="shade-swatch" data-shade="${s.id}" data-cat="${s.category}" onclick="NP.selectShade('${s.id}')" role="radio" tabindex="0" aria-label="${s.name} shade" onkeydown="if(event.key==='Enter')NP.selectShade('${s.id}')">
+        <div class="swatch-circle" style="background:${s.hex}"></div>
+        <div class="swatch-label">${s.name}</div>
+      </div>
+    `).join('');
+  }
+
+  // ── Shade Filter ─────────────────────────────────────────────
+  window.filterShades = function(cat) {
+    document.querySelectorAll('.shade-swatch').forEach(el => {
+      el.style.display = (cat === 'all' || el.dataset.cat === cat) ? '' : 'none';
+    });
+  };
+
+  // ── Mixing Note Grids ────────────────────────────────────────
+  function renderMixingGrid(gridId, tier, notes) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    grid.innerHTML = notes.map(note => `
+      <button class="mixing-note-btn" data-tier="${tier}" data-note="${note.id}"
+              onclick="NP.selectNote('${tier}', '${note.id}')"
+              title="${note.name} — ${note.family}">
+        <span class="mixing-note-icon">${note.icon}</span>
+        <span>${note.name}</span>
+      </button>
+    `).join('');
+  }
+  renderMixingGrid('mixer-top-grid',    'top',    PRODUCTS.mixingNotes.top);
+  renderMixingGrid('mixer-middle-grid', 'middle', PRODUCTS.mixingNotes.middle);
+  renderMixingGrid('mixer-base-grid',   'base',   PRODUCTS.mixingNotes.base);
+
+  // ── Keyboard close modal ─────────────────────────────────────
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      NP.closeProductModal();
+      NP.closePanelOverlay();
+    }
+  });
+
+  // ── Reveal observer on static grids ─────────────────────────
+  setTimeout(function() {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }, 200);
+
+});
+</script>
+</body>
+</html>
