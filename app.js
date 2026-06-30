@@ -23,7 +23,7 @@
 
   // ── HELPERS ─────────────────────────────────────────────
   function slugify(text) { return text.toLowerCase().replace(/\s+/g, '-'); }
-  function formatPrice(n) { return '$' + Number(n).toFixed(2); }
+  function formatPrice(n) { return 'AED ' + Number(n).toFixed(2); }
 
   function getAllProducts() {
     return [...(PRODUCTS.perfumes || []), ...(PRODUCTS.hairColours || [])];
