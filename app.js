@@ -396,22 +396,156 @@
     }, 400);
   }
 
+  let lastOrderInfo = null;
+
   function checkout() {
     if (state.cart.length === 0) { showToast('Your cart is empty!', 'error', '🛒'); return; }
-    showToast('Redirecting to secure checkout…', 'gold', '🔐');
+    openCheckoutModal();
+  }
+
+  function openCheckoutModal() {
+    const modal = document.getElementById('checkout-modal');
+    if (!modal) return;
+    document.getElementById('checkout-form-container').style.display = 'block';
+    document.getElementById('checkout-processing-container').style.display = 'none';
+    document.getElementById('checkout-success-container').style.display = 'none';
+    document.getElementById('checkout-form').reset();
+    togglePaymentFields('cod');
+    updateCheckoutSummary();
+    closeCart();
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCheckoutModal() {
+    const modal = document.getElementById('checkout-modal');
+    if (modal) modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function updateCheckoutSummary() {
+    const { sub, comboDiscount, disc, ship, total } = cartTotal();
+    document.getElementById('checkout-subtotal').textContent = formatPrice(sub);
+    const discRow = document.getElementById('checkout-discount-row');
+    if (comboDiscount > 0 || disc > 0) {
+      discRow.style.display = 'flex';
+      document.getElementById('checkout-discount').textContent = '−' + formatPrice(comboDiscount + disc);
+    } else {
+      discRow.style.display = 'none';
+    }
+    document.getElementById('checkout-shipping').textContent = ship === 0 ? 'Free' : formatPrice(ship);
+    document.getElementById('checkout-total').textContent = formatPrice(total);
+    const method = document.querySelector('input[name="payment-method"]:checked')?.value || 'cod';
+    const btn = document.getElementById('checkout-submit-btn');
+    if (btn) {
+      btn.textContent = method === 'online' ? `Pay & Confirm Order (${formatPrice(total)})` : `Confirm Order (${formatPrice(total)})`;
+    }
+  }
+
+  function togglePaymentFields(method) {
+    const cardFields = document.getElementById('card-fields-container');
+    const labelCod = document.getElementById('label-cod');
+    const labelOnline = document.getElementById('label-online');
+    if (method === 'online') {
+      cardFields.style.display = 'block';
+      labelOnline.classList.add('active');
+      labelCod.classList.remove('active');
+      document.getElementById('card-holder').setAttribute('required', 'true');
+      document.getElementById('card-number').setAttribute('required', 'true');
+      document.getElementById('card-expiry').setAttribute('required', 'true');
+      document.getElementById('card-cvv').setAttribute('required', 'true');
+    } else {
+      cardFields.style.display = 'none';
+      labelCod.classList.add('active');
+      labelOnline.classList.remove('active');
+      document.getElementById('card-holder').removeAttribute('required');
+      document.getElementById('card-number').removeAttribute('required');
+      document.getElementById('card-expiry').removeAttribute('required');
+      document.getElementById('card-cvv').removeAttribute('required');
+    }
+    updateCheckoutSummary();
+  }
+
+  function formatCardNumber(input) {
+    let value = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    let formatted = '';
+    for (let i = 0; i < value.length; i++) {
+      if (i > 0 && i % 4 === 0) formatted += ' ';
+      formatted += value[i];
+    }
+    input.value = formatted;
+  }
+
+  function formatCardExpiry(input) {
+    let value = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    if (value.length > 2) {
+      input.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+    } else {
+      input.value = value;
+    }
+  }
+
+  function processCheckout(event) {
+    event.preventDefault();
+    const method = document.querySelector('input[name="payment-method"]:checked')?.value || 'cod';
+    if (method === 'online') {
+      const holder = document.getElementById('card-holder').value.trim();
+      const num = document.getElementById('card-number').value.replace(/\s+/g, '');
+      const exp = document.getElementById('card-expiry').value;
+      const cvv = document.getElementById('card-cvv').value;
+      if (!holder) { showToast('Please enter cardholder name', 'error', '💳'); return; }
+      if (num.length < 15) { showToast('Please enter a valid credit card number', 'error', '💳'); return; }
+      if (!/^\d{2}\/\d{2}$/.test(exp)) { showToast('Expiry date must be in MM/YY format', 'error', '💳'); return; }
+      if (cvv.length < 3) { showToast('Please enter a valid CVV', 'error', '💳'); return; }
+    }
+    const name = document.getElementById('shipping-name').value.trim();
+    const phone = document.getElementById('shipping-phone').value.trim();
+    const city = document.getElementById('shipping-city').value;
+    const address = document.getElementById('shipping-address').value.trim();
+    const refNum = `NP-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+    const { sub, comboDiscount, disc, ship, total } = cartTotal();
+    lastOrderInfo = {
+      refNum, name, phone, city, address, method, sub, comboDiscount, disc, ship, total,
+      items: state.cart.map(i => ({ name: i.name, qty: i.qty, price: i.price, size: i.size || '' }))
+    };
+    document.getElementById('checkout-form-container').style.display = 'none';
+    document.getElementById('checkout-processing-container').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('checkout-processing-container').style.display = 'none';
+      document.getElementById('checkout-success-container').style.display = 'block';
+      document.getElementById('success-ref-num').textContent = '#' + refNum;
+      document.getElementById('success-payment-status').textContent = method === 'online' ? 'Payment Status: Paid via Card (Secure)' : 'Payment Status: Cash on Delivery';
+      document.getElementById('success-name').textContent = name;
+      document.getElementById('success-phone').textContent = phone;
+      document.getElementById('success-city').textContent = city;
+      document.getElementById('success-address').textContent = address;
+      showToast('Order placed successfully! 🎉', 'success', '🛍️');
+    }, 2000);
+  }
+
+  function sendOrderWhatsApp() {
+    if (!lastOrderInfo) return;
+    const info = lastOrderInfo;
+    const itemsText = info.items.map(i => `• ${i.name} (x${i.qty}) ${i.size ? `[${i.size}]` : ''} — ${formatPrice(i.price * i.qty)}`).join('\n');
+    let summary = `💰 Subtotal: ${formatPrice(info.sub)}\n`;
+    if (info.comboDiscount > 0) summary += `🎁 Combo Offer Saving: -${formatPrice(info.comboDiscount)}\n`;
+    if (info.disc > 0) summary += `🏷️ Coupon Saving: -${formatPrice(info.disc)}\n`;
+    summary += `🚚 Shipping: ${info.ship === 0 ? 'Free' : formatPrice(info.ship)}\n`;
+    summary += `💵 Grand Total: ${formatPrice(info.total)}`;
+    const payStatus = info.method === 'online' ? '✅ Paid via Online Card (Secure Gateway)' : '💵 Cash on Delivery (COD)';
+    const text = `Hello Natural Paradise! 🌿\n\n🛍️ *NEW ORDER PLACE REQUEST*\n\n📝 *Order Reference:* #${info.refNum}\n💳 *Payment Method:* ${payStatus}\n\n🚚 *SHIPPING ADDRESS:*\n• *Name:* ${info.name}\n• *Phone:* ${info.phone}\n• *Emirate/City:* ${info.city}\n• *Address:* ${info.address}\n\n📦 *ORDERED ITEMS:*\n${itemsText}\n\n${summary}\n\nPlease confirm my order. Thank you!`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  function closeCheckoutSuccess() {
+    state.cart = [];
+    saveState();
+    updateCartUI();
+    closeCheckoutModal();
   }
 
   function whatsappCheckout() {
-    if (state.cart.length === 0) { showToast('Your cart is empty!', 'error', '🛒'); return; }
-    const { sub, comboDiscount, disc, ship, total } = cartTotal();
-    const items = state.cart.map(i => `• ${i.name} (x${i.qty}) — ${formatPrice(i.price * i.qty)}`).join('\n');
-    let summary = `💰 Subtotal: ${formatPrice(sub)}\n`;
-    if (comboDiscount > 0) summary += `🎁 Combo Offer Discount: -${formatPrice(comboDiscount)}\n`;
-    if (disc > 0) summary += `🏷️ Coupon Discount (${state.coupon ? COUPONS[state.coupon] : 0}%): -${formatPrice(disc)}\n`;
-    summary += `🚚 Shipping: ${ship === 0 ? 'Free' : formatPrice(ship)}\n`;
-    summary += `💵 Total: ${formatPrice(total)}`;
-    const msg = encodeURIComponent(`Hello Natural Paradise! 🌿\n\nI'd like to order:\n${items}\n\n${summary}\n\nPlease guide me through the payment process. Thank you!`);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+    checkout();
   }
 
   function whatsappProduct(p) {
@@ -719,6 +853,9 @@
     selectShade, toggleFaq,
     subscribeNewsletter, openMobileMenu, closeMobileMenu,
     switchLabTab,
+    closeCheckoutModal, updateCheckoutSummary, togglePaymentFields,
+    formatCardNumber, formatCardExpiry, processCheckout,
+    sendOrderWhatsApp, closeCheckoutSuccess
   };
 
   document.addEventListener('DOMContentLoaded', init);

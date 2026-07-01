@@ -837,6 +837,157 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
+     SECURE CHECKOUT MODAL
+════════════════════════════════════════════════════════════ -->
+<div id="checkout-modal" class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-heading">
+  <div class="checkout-modal-bg" onclick="NP.closeCheckoutModal()"></div>
+  <div class="checkout-modal-content">
+    <button class="checkout-modal-close" onclick="NP.closeCheckoutModal()" aria-label="Close Checkout">✕</button>
+    
+    <!-- Step 1: Checkout Form -->
+    <div id="checkout-form-container">
+      <h3 id="checkout-heading" class="checkout-title">Secure Checkout</h3>
+      <p class="checkout-subtitle">Enter your delivery address and choose a payment method to confirm your order.</p>
+      
+      <form id="checkout-form" onsubmit="NP.processCheckout(event)">
+        <!-- Shipping Information -->
+        <div class="form-section-title">🚚 Shipping Information</div>
+        
+        <div class="form-group">
+          <label for="shipping-name">Full Name *</label>
+          <input type="text" id="shipping-name" required placeholder="e.g. John Doe">
+        </div>
+        
+        <div class="form-group">
+          <label for="shipping-phone">Phone Number *</label>
+          <input type="tel" id="shipping-phone" required placeholder="e.g. +971 55 123 4567">
+        </div>
+
+        <div class="form-group">
+          <label for="shipping-city">Emirate / City *</label>
+          <select id="shipping-city" required onchange="NP.updateCheckoutSummary()">
+            <option value="Dubai">Dubai</option>
+            <option value="Abu Dhabi">Abu Dhabi</option>
+            <option value="Sharjah">Sharjah</option>
+            <option value="Ajman">Ajman</option>
+            <option value="Umm Al Quwain">Umm Al Quwain</option>
+            <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+            <option value="Fujairah">Fujairah</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="shipping-address">Delivery Address *</label>
+          <textarea id="shipping-address" required placeholder="Street, Building/Villa Name, Apartment No., Area..." rows="3"></textarea>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="form-section-title">💳 Payment Method</div>
+        <div class="payment-options">
+          <label class="payment-option-label active" id="label-cod">
+            <input type="radio" name="payment-method" value="cod" checked onchange="NP.togglePaymentFields('cod')">
+            <span class="option-icon">💵</span>
+            <span class="option-text">
+              <strong>Cash on Delivery (COD)</strong>
+              <span class="option-desc">Pay with cash or card upon delivery.</span>
+            </span>
+          </label>
+          
+          <label class="payment-option-label" id="label-online">
+            <input type="radio" name="payment-method" value="online" onchange="NP.togglePaymentFields('online')">
+            <span class="option-icon">💳</span>
+            <span class="option-text">
+              <strong>Online Card Payment</strong>
+              <span class="option-desc">Pay securely now using credit/debit card.</span>
+            </span>
+          </label>
+        </div>
+
+        <!-- Online Card Fields -->
+        <div id="card-fields-container" class="card-fields-container" style="display:none">
+          <div class="form-group">
+            <label for="card-holder">Cardholder Name *</label>
+            <input type="text" id="card-holder" placeholder="e.g. John Doe">
+          </div>
+          <div class="form-group">
+            <label for="card-number">Card Number *</label>
+            <input type="text" id="card-number" placeholder="4111 2222 3333 4444" maxlength="19" oninput="NP.formatCardNumber(this)">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+            <div class="form-group">
+              <label for="card-expiry">Expiry Date *</label>
+              <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" oninput="NP.formatCardExpiry(this)">
+            </div>
+            <div class="form-group">
+              <label for="card-cvv">CVV *</label>
+              <input type="password" id="card-cvv" placeholder="123" maxlength="4">
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Summary Preview -->
+        <div class="checkout-summary-box">
+          <div class="summary-line">
+            <span>Subtotal:</span>
+            <span id="checkout-subtotal">AED 0.00</span>
+          </div>
+          <div class="summary-line discount" id="checkout-discount-row" style="display:none">
+            <span>Discounts:</span>
+            <span id="checkout-discount">-AED 0.00</span>
+          </div>
+          <div class="summary-line">
+            <span>Shipping:</span>
+            <span id="checkout-shipping">AED 0.00</span>
+          </div>
+          <div class="summary-line total">
+            <span>Grand Total:</span>
+            <span id="checkout-total">AED 0.00</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:1.5rem" id="checkout-submit-btn">
+          Confirm Order
+        </button>
+      </form>
+    </div>
+
+    <!-- Step 2: Processing Screen -->
+    <div id="checkout-processing-container" style="display:none;text-align:center;padding:3rem 1.5rem">
+      <div class="checkout-spinner"></div>
+      <h3 style="margin-top:1.5rem;font-family:var(--font-serif);color:var(--color-cream)">Securing Payment Link...</h3>
+      <p style="color:var(--color-text-dim);font-size:0.9rem;margin-top:0.5rem">Please do not refresh the page while we process your secure transaction.</p>
+    </div>
+
+    <!-- Step 3: Success Screen -->
+    <div id="checkout-success-container" style="display:none;text-align:center;padding:3rem 1.5rem">
+      <div class="success-checkmark-wrapper">
+        <div class="success-checkmark">✓</div>
+      </div>
+      <h3 style="margin-top:1.5rem;font-family:var(--font-serif);color:var(--color-gold);font-size:1.8rem">Order Placed Successfully!</h3>
+      <p style="color:var(--color-cream);font-size:0.95rem;margin-top:0.5rem">Your order reference is <strong id="success-ref-num" style="color:var(--color-gold)">#NP-2026-1001</strong></p>
+      <p style="color:var(--color-text-dim);font-size:0.85rem;margin-top:0.25rem" id="success-payment-status">Payment Status: Cash on Delivery</p>
+      
+      <div style="background:rgba(197,162,89,0.05);border:1px solid rgba(197,162,89,0.15);border-radius:var(--radius-lg);padding:1.25rem;margin:1.5rem 0;text-align:left;font-size:0.85rem;line-height:1.6">
+        <div style="color:var(--color-cream);font-weight:600;margin-bottom:0.5rem;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:0.25rem">🚚 Delivery Details</div>
+        <div style="color:var(--color-text-dim)"><strong>Name:</strong> <span id="success-name">John Doe</span></div>
+        <div style="color:var(--color-text-dim)"><strong>Phone:</strong> <span id="success-phone">+971 55 123 4567</span></div>
+        <div style="color:var(--color-text-dim)"><strong>City:</strong> <span id="success-city">Dubai</span></div>
+        <div style="color:var(--color-text-dim)"><strong>Address:</strong> <span id="success-address">Street Address, Villa 12</span></div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:0.75rem">
+        <button class="btn btn-whatsapp btn-block" onclick="NP.sendOrderWhatsApp()">
+          📱 Send Order Details to WhatsApp
+        </button>
+        <button class="btn btn-outline btn-block" onclick="NP.closeCheckoutSuccess()">
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
      TOAST NOTIFICATIONS
 ════════════════════════════════════════════════════════════ -->
 <div id="toast-container" class="toast-container" role="status" aria-live="polite"></div>
