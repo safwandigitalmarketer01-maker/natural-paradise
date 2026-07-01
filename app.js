@@ -836,16 +836,7 @@
 
   // ── HERO IMAGE PARALLAX ──────────────────────────────────
   function initParallax() {
-    const slides = document.querySelectorAll('.hero-slide');
-    if (slides.length === 0) return;
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (y < window.innerHeight) {
-        slides.forEach(slide => {
-          slide.style.transform = `translateY(${y * 0.25}px)`;
-        });
-      }
-    }, { passive: true });
+    // Disabled to preserve pixel-perfect rendering of banner text on scroll
   }
 
   // ── HERO BANNER AUTOMATIC SLIDER ──────────────────────────
