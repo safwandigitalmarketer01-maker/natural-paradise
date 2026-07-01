@@ -244,6 +244,177 @@ const PRODUCTS = {
         { name: 'Maya Patel', rating: 4.5, date: 'June 2026', comment: 'Fresh, bright, and perfect for hot summer days.' }
       ]
     },
+    // ── NEW INSPIRED COLLECTION ─────────────────────────────────
+    {
+      id: 'np-001', category: 'luxury', name: 'Prestige Ruby',
+      subtitle: 'Premium Inspired Collection',
+      price: 129, originalPrice: 179,
+      size: '50ml', longevity: '10–12 hours', sillage: 'Strong',
+      family: 'Oriental',
+      topNotes: ['Saffron', 'Jasmine', 'Red Currant'],
+      middleNotes: ['Amberwood', 'Ambergris', 'Rose'],
+      baseNotes: ['Fir Resin', 'Cedarwood', 'Musk'],
+      description: 'A luxurious and rich oriental floral scent, opening with precious saffron and red currant, melting into ambergris and rose, resting on woody fir resin.',
+      ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua, Linalool, Limonene.',
+      image: 'assets/prestige_ruby.png',
+      badge: 'Bestseller', tag: 'luxury',
+      inStock: true, rating: 4.9, reviews: [
+        { name: 'Fatima Al Suwaidi', rating: 5, date: 'June 2026', comment: 'Extremely close to the original! The ruby bottle presentation is stunning and the scent lasts all day.' }
+      ]
+    },
+    {
+      id: 'np-002', category: 'womens', name: 'Folra',
+      subtitle: 'Premium Inspired Collection',
+      price: 119, originalPrice: 169,
+      size: '50ml', longevity: '8–10 hours', sillage: 'Moderate',
+      family: 'Floral',
+      topNotes: ['Pear Blossom', 'Red Berries', 'Italian Mandarin'],
+      middleNotes: ['Gardenia', 'Jasmine Sambac', 'Frangipani'],
+      baseNotes: ['Patchouli', 'Brown Sugar'],
+      description: 'A cheerful floral scent built around the gorgeous Gardenia flower blended with solar Jasmine absolute and sweet brown sugar.',
+      ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua, Benzyl Salicylate, Hydroxycitronellal.',
+      image: 'assets/flora.png',
+      badge: 'Popular', tag: 'womens',
+      inStock: true, rating: 4.8, reviews: [
+        { name: 'Sarah Miller', rating: 5, date: 'June 2026', comment: 'Beautiful sweet gardenia smell. Very fresh and bright!' }
+      ]
+    },
+    {
+      id: 'np-003', category: 'arabic', name: 'Ignite Oud',
+      subtitle: 'Premium Inspired Collection',
+      price: 125, originalPrice: 175,
+      size: '50ml', longevity: '12–14 hours', sillage: 'Exceptional',
+      family: 'Oud',
+      topNotes: ['Geranium', 'Leather', 'Saffron'],
+      middleNotes: ['Oud', 'Rose', 'Patchouli'],
+      baseNotes: ['Amber', 'Sandalwood', 'Amyris'],
+      description: 'An intense, smoky oud composition blended with rich leather, saffron, and a delicate touch of Taif rose to ignite the senses.',
+      ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua, Alpha-Isomethyl Ionone, Citronellol.',
+      image: 'assets/ignite_oud.png',
+      badge: 'Exclusive', tag: 'arabic',
+      inStock: true, rating: 4.9, reviews: [
+        { name: 'Zayed Al Mansoori', rating: 5, date: 'May 2026', comment: 'Strong, rich, authentic Arabic oud. Very long-lasting on clothes!' }
+      ]
+    },
+    {
+      id: 'np-004', category: 'arabic', name: 'Oud & Rose',
+      subtitle: 'Premium Inspired Collection',
+      price: 125, originalPrice: 175,
+      size: '50ml', longevity: '12+ hours', sillage: 'Strong',
+      family: 'Oud',
+      topNotes: ['Turkish Rose', 'Lavender', 'Lemon'],
+      middleNotes: ['Cambodian Oud', 'Saffron', 'Jasmine'],
+      baseNotes: ['Sandalwood', 'White Musk', 'Amber'],
+      description: 'A beautiful marriage of delicate floral rose and deep, mysterious Cambodian oud, creating an elegant and classic oriental sillage.',
+      ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua, Geraniol, Linalool.',
+      image: 'assets/oud_rose.png',
+      badge: 'Bestseller', tag: 'arabic',
+      inStock: true, rating: 4.8, reviews: [
+        { name: 'Mariam Al Shehhi', rating: 5, date: 'June 2026', comment: 'Perfect oud-rose fragrance. Not overpowering, very classy.' }
+      ]
+    },
+    {
+      id: 'np-005', category: 'womens', name: 'Candy Sugar',
+      subtitle: 'Premium Inspired Collection',
+      price: 109, originalPrice: 159,
+      size: '50ml', longevity: '8–10 hours', sillage: 'Moderate',
+      family: 'Citrus',
+      topNotes: ['Red Fruits', 'Sweet Cherry', 'Mandarin'],
+      middleNotes: ['Cotton Candy', 'Lily of the Valley', 'Sugar'],
+      baseNotes: ['Vanilla Bean', 'Caramel', 'White Musk'],
+      description: 'A delicious gourmand dream opening with sweet cherry and mandarin, wrapped in cotton candy and resting on a rich caramel-vanilla base.',
+      ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua, Limonene, Coumarin.',
+      image: 'assets/candy_sugar.png',
+      badge: 'New', tag: 'womens',
+      inStock: true, rating: 4.7, reviews: [
+        { name: 'Amna Al Mheiri', rating: 5, date: 'June 2026', comment: 'Smells like sweet candies. Very playful and youthful scent!' }
+      ]
+    },
+    {
+      id: 'np-006', category: 'mens', name: 'Hermees',
+      subtitle: 'Premium Inspired Collection',
+      price: 119, originalPrice: 169,
+      size: '50ml', longevity: '10–12 hours', sillage: 'Strong',
+      family: 'Woody',
+      topNotes: ['Grapefruit', 'Orange', 'Flint'],
+      middleNotes: ['Pepper', 'Pink Pepper', 'Pelargonium Leaf'],
+      baseNotes: ['Cedar', 'Vetiver', 'Patchouli', 'Benzoin'],
+      description: 'A mineral-woody scent connecting earth and sky. Built around a core of vetiver and cedarwood with a vibrant citrus opening.',
+      ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua, Limonene, Linalool, Citral.',
+      image: 'assets/hermees.png',
+      badge: 'Classic', tag: 'mens',
+      inStock: true, rating: 4.9, reviews: [
+        { name: 'David Carter', rating: 5, date: 'June 2026', comment: 'Incredible match! The mineral flint and orange notes are spot on.' }
+      ]
+    },
+    {
+      id: 'np-007', category: 'luxury', name: 'Eclair',
+      subtitle: 'Premium Inspired Collection',
+      price: 129, originalPrice: 179,
+      size: '50ml', longevity: '12+ hours', sillage: 'Strong',
+      family: 'Oriental',
+      topNotes: ['Caramel', 'Milk', 'Sugar'],
+      middleNotes: ['Honey', 'White Flowers'],
+      baseNotes: ['Vanilla', 'Praline', 'Musk'],
+      description: 'An absolute gourmand masterpiece. Warm caramel, sweet milk, and golden honey layered over rich praline and vanilla bean.',
+      ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua, Coumarin, Benzyl Benzoate.',
+      image: 'assets/eclair.png',
+      badge: 'Bestseller', tag: 'luxury',
+      inStock: true, rating: 5.0, reviews: [
+        { name: 'Elena Rostova', rating: 5, date: 'June 2026', comment: 'This is the ultimate vanilla-caramel fragrance. Smells incredibly delicious!' }
+      ]
+    },
+    {
+      id: 'np-008', category: 'womens', name: 'Paradoxe',
+      subtitle: 'Premium Inspired Collection',
+      price: 129, originalPrice: 179,
+      size: '50ml', longevity: '10–12 hours', sillage: 'Strong',
+      family: 'Floral',
+      topNotes: ['Pear', 'Tangerine', 'Bergamot'],
+      middleNotes: ['Orange Blossom', 'Neroli Essence', 'Jasmine Sambac'],
+      baseNotes: ['Bourbon Vanilla', 'White Amber', 'White Musk'],
+      description: 'A vibrant floral bouquet capturing the paradoxes of iconic ingredients to reveal new scented sensations. Fresh, warm, and sensual.',
+      ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua, Limonene, Linalool, Benzyl Alcohol.',
+      image: 'assets/paradoxe.png',
+      badge: 'New', tag: 'womens',
+      inStock: true, rating: 4.8, reviews: [
+        { name: 'Noura Al Nahyan', rating: 5, date: 'June 2026', comment: 'Very feminine and elegant. The pear and neroli combination is beautiful.' }
+      ]
+    },
+    {
+      id: 'np-009', category: 'unisex', name: 'Kaaf',
+      subtitle: 'Premium Inspired Collection',
+      price: 119, originalPrice: 169,
+      size: '50ml', longevity: '10+ hours', sillage: 'Strong',
+      family: 'Fresh',
+      topNotes: ['Red Fruits', 'Watermelon', 'Bergamot'],
+      middleNotes: ['Sea Notes', 'Lavender', 'Geranium'],
+      baseNotes: ['Ambergris', 'Sandalwood', 'White Musk'],
+      description: 'An uplifting, clean aquatic freshness layered with juicy red fruits and lavender, resting on a sophisticated ambergris base.',
+      ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua, Limonene, Linalool, Alpha-Isomethyl Ionone.',
+      image: 'assets/kaaf.png',
+      badge: 'Popular', tag: 'unisex',
+      inStock: true, rating: 4.8, reviews: [
+        { name: 'Omar Al Hashimi', rating: 5, date: 'May 2026', comment: 'The best fresh summer scent! The watermelon and sea notes are so refreshing.' }
+      ]
+    },
+    {
+      id: 'np-010', category: 'arabic', name: 'Marj',
+      subtitle: 'Premium Inspired Collection',
+      price: 125, originalPrice: 175,
+      size: '50ml', longevity: '12+ hours', sillage: 'Exceptional',
+      family: 'Oriental',
+      topNotes: ['Black Pepper', 'Pink Pepper', 'Grapefruit'],
+      middleNotes: ['Agarwood (Oud)', 'Saffron', 'Rose Taif'],
+      baseNotes: ['Amber', 'Patchouli', 'Sandalwood', 'Leather'],
+      description: 'A spicy and woody oriental fragrance, blending hot black pepper, precious saffron, rose Taif, and rich leather over an amber-oud base.',
+      ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua, Eugenol, Citral.',
+      image: 'assets/marj.png',
+      badge: 'Exclusive', tag: 'arabic',
+      inStock: true, rating: 4.9, reviews: [
+        { name: 'Hamdan Al Qassimi', rating: 5, date: 'June 2026', comment: 'Stunning spicy oud fragrance. Very high-end and has a beautiful sillage.' }
+      ]
+    }
   ],
 
   hairColours: [
