@@ -836,14 +836,28 @@
 
   // ── HERO IMAGE PARALLAX ──────────────────────────────────
   function initParallax() {
-    const heroBg = document.querySelector('.hero-bg img');
-    if (!heroBg) return;
+    const slides = document.querySelectorAll('.hero-slide');
+    if (slides.length === 0) return;
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
       if (y < window.innerHeight) {
-        heroBg.style.transform = `scale(1.05) translateY(${y * 0.25}px)`;
+        slides.forEach(slide => {
+          slide.style.transform = `translateY(${y * 0.25}px)`;
+        });
       }
     }, { passive: true });
+  }
+
+  // ── HERO BANNER AUTOMATIC SLIDER ──────────────────────────
+  function initHeroSlider() {
+    const slides = document.querySelectorAll('.hero-slide');
+    if (slides.length <= 1) return;
+    let currentIdx = 0;
+    setInterval(() => {
+      slides[currentIdx].classList.remove('active');
+      currentIdx = (currentIdx + 1) % slides.length;
+      slides[currentIdx].classList.add('active');
+    }, 5000); // Premium slow transition every 5 seconds
   }
 
   // ── MOBILE MENU ──────────────────────────────────────────
@@ -868,6 +882,7 @@
     updateMixerBottle();
     initReveal();
     initParallax();
+    initHeroSlider();
     setInterval(updateCountdown, 1000);
     updateCountdown();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -879,14 +894,6 @@
         sr.classList.remove('visible');
       }
     });
-
-    // Hero image loaded — start reveal
-    const heroBgImg = document.querySelector('.hero-bg img');
-    if (heroBgImg) {
-      heroBgImg.addEventListener('load', () => {
-        heroBgImg.style.opacity = '0.45';
-      });
-    }
 
     // Announce bar offset header
     const annoBar = document.getElementById('announcement-bar');
