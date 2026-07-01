@@ -122,9 +122,9 @@
 
   function addCustomToCart(name, notes, price) {
     const id = 'custom-' + Date.now();
-    state.cart.push({ id, name: name || 'My Custom Blend', price, image: 'assets/signature_perfume.jpg', qty: 1, size: '50ml', custom: true, notes });
+    state.cart.push({ id, name: name || 'My Studio Blend', price, image: 'assets/signature_perfume.jpg', qty: 1, size: '50ml', custom: true, notes });
     saveState(); updateCartUI();
-    showToast(`<strong>${name || 'Custom Blend'}</strong> added to cart!`, 'success', '🧪');
+    showToast(`<strong>${name || 'Studio Blend'}</strong> added to cart!`, 'success', '🧪');
   }
 
   function removeFromCart(id) {
