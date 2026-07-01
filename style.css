@@ -1535,3 +1535,26 @@ p  { font-size: 0.95rem; color: var(--color-text-muted); }
   .checkout-modal-content { padding: 1.5rem; }
   .checkout-title { font-size: 1.5rem; }
 }
+
+.hero-floating-ctas {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 1.25rem;
+  width: auto;
+}
+@media (max-width: 576px) {
+  .hero-floating-ctas {
+    bottom: 2.5rem;
+    width: calc(100% - 3rem);
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .hero-floating-ctas .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
