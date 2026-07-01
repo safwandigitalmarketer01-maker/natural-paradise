@@ -185,11 +185,10 @@ p  { font-size: 0.95rem; color: var(--color-text-muted); }
 
 /* ── Header ── */
 .site-header {
-  position: fixed; top: 0; left: 0; width: 100%;
+  position: sticky; top: 0; left: 0; width: 100%;
   z-index: var(--zindex-sticky);
   transition: var(--transition);
 }
-.site-header.announcement-visible { top: 36px; }
 .header-inner {
   background: var(--color-glass);
   backdrop-filter: blur(24px) saturate(150%);
@@ -1546,7 +1545,6 @@ p  { font-size: 0.95rem; color: var(--color-text-muted); }
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding-top: var(--header-h);
     background: var(--color-dark-2);
   }
   .hero-bg {

@@ -886,20 +886,6 @@
       }
     });
 
-    // Announce bar offset header
-    const annoBar = document.getElementById('announcement-bar');
-    const siteHeader = document.getElementById('site-header');
-    if (annoBar && siteHeader) {
-      const barH = annoBar.offsetHeight;
-      siteHeader.style.top = barH + 'px';
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > barH) {
-          siteHeader.style.top = '0';
-        } else {
-          siteHeader.style.top = (barH - window.scrollY) + 'px';
-        }
-      }, { passive: true });
-    }
   }
 
   function switchLabTab(tabName) {
