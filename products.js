@@ -420,12 +420,12 @@ const PRODUCTS = {
   hairColours: [
     // ── PROFESSIONAL HAIR COLOURS ─────────────────────────────
     {
-      id: 'hc-001', category: 'professional', name: 'Midnight Black',
+      id: 'hc-001', category: 'professional', name: 'Natural Black',
       subtitle: 'Professional Series', shade: '1.0',
       price: 45, originalPrice: 60,
       coverage: '100% Grey Coverage', duration: 'Permanent',
       size: '100ml + 100ml Developer', tone: 'Cool',
-      description: 'A rich, deep black with cool blue undertones. Provides total grey coverage and brilliant shine with our advanced colour-lock technology.',
+      description: 'A rich, deep natural black shade. Provides total grey coverage and brilliant shine with our advanced colour-lock technology.',
       ingredients: 'Aqua, Cetearyl Alcohol, Propylene Glycol, PPD, Resorcinol, Ammonia.',
       image: 'assets/hair_colour.jpg',
       badge: 'Bestseller',
@@ -435,60 +435,17 @@ const PRODUCTS = {
       ]
     },
     {
-      id: 'hc-002', category: 'professional', name: 'Caramel Latte',
-      subtitle: 'Professional Series', shade: '5.3',
-      price: 48, originalPrice: 63,
+      id: 'hc-002', category: 'professional', name: 'Dark Brown',
+      subtitle: 'Professional Series', shade: '3.0',
+      price: 45, originalPrice: 60,
       coverage: '100% Grey Coverage', duration: 'Permanent',
-      size: '100ml + 100ml Developer', tone: 'Warm',
-      description: 'A sumptuous golden brown with warm caramel highlights. This shade creates depth and dimension, perfect for enhancing natural brunettes or transitioning from darker shades.',
+      size: '100ml + 100ml Developer', tone: 'Natural Warm',
+      description: 'A deep, rich dark brown shade. Provides complete grey coverage, intense nourishment, and long-lasting color brilliance.',
       ingredients: 'Aqua, Cetearyl Alcohol, Propylene Glycol, p-Phenylenediamine, Resorcinol.',
       image: 'assets/hair_colour.jpg',
       badge: 'Bestseller',
       inStock: true, rating: 4.7, reviews: [
-        { name: 'Fatima Noor', rating: 5, date: 'June 2026', comment: 'The caramel tones are so beautiful and warm. My hair looks healthy and vibrant.' }
-      ]
-    },
-    {
-      id: 'hc-003', category: 'professional', name: 'Burgundy Red',
-      subtitle: 'Professional Series', shade: '5.6',
-      price: 50, originalPrice: 65,
-      coverage: '100% Grey Coverage', duration: 'Permanent',
-      size: '100ml + 100ml Developer', tone: 'Warm',
-      description: 'A bold, deep burgundy with red violet undertones. This statement shade is long-lasting and vibrant, perfect for those who want to stand out.',
-      ingredients: 'Aqua, Cetearyl Alcohol, Propylene Glycol, PPD, HC Red No.3.',
-      image: 'assets/hair_colour.jpg',
-      badge: 'Popular',
-      inStock: true, rating: 4.9, reviews: [
-        { name: 'Zainab Hussain', rating: 5, date: 'May 2026', comment: 'The most stunning burgundy I have ever used. Long-lasting and glossy.' }
-      ]
-    },
-    // ── SALON COLLECTION ─────────────────────────────────────
-    {
-      id: 'sal-001', category: 'salon', name: 'Platinum Blonde',
-      subtitle: 'Salon Collection', shade: '10.1',
-      price: 65, originalPrice: 85,
-      coverage: '100% Grey Coverage', duration: 'Permanent',
-      size: '120ml + 120ml Developer', tone: 'Cool Ash',
-      description: 'An ultra-light platinum blonde with cool ash tones. Professional-grade formula designed for salon use, delivering stunning icy results with maximum lift.',
-      ingredients: 'Aqua, Cetearyl Alcohol, Propylene Glycol, PPD, Sodium Persulfate.',
-      image: 'assets/hair_colour.jpg',
-      badge: 'Salon Exclusive',
-      inStock: true, rating: 4.8, reviews: [
-        { name: 'Nina Russo', rating: 5, date: 'June 2026', comment: 'Perfect platinum result on my clients. Very professional formula.' }
-      ]
-    },
-    {
-      id: 'sal-002', category: 'salon', name: 'Copper Ginger',
-      subtitle: 'Salon Collection', shade: '7.4',
-      price: 58, originalPrice: 75,
-      coverage: '100% Grey Coverage', duration: 'Permanent',
-      size: '120ml + 120ml Developer', tone: 'Warm Copper',
-      description: 'A vibrant, fiery copper with warm golden undertones. Inspired by the rich autumn palette, this salon-grade formula delivers rich, multi-dimensional colour.',
-      ingredients: 'Aqua, Cetearyl Alcohol, Propylene Glycol, HC Yellow No.2, HC Orange.',
-      image: 'assets/hair_colour.jpg',
-      badge: 'New',
-      inStock: true, rating: 4.7, reviews: [
-        { name: 'Rebecca Stone', rating: 5, date: 'April 2026', comment: 'My clients are obsessed with this copper shade. Gorgeous and long-lasting.' }
+        { name: 'Fatima Noor', rating: 5, date: 'June 2026', comment: 'The brown tones are so beautiful and warm. My hair looks healthy and vibrant.' }
       ]
     },
     // ── HAIR CARE ────────────────────────────────────────────
@@ -566,24 +523,8 @@ const PRODUCTS = {
 
   // ── HAIR SHADE GUIDE ──────────────────────────────────────
   shadeGuide: [
-    { id: '1.0', name: 'Midnight Black', hex: '#0d0d0d', category: 'Black' },
-    { id: '2.0', name: 'Soft Black', hex: '#1a1a1a', category: 'Black' },
-    { id: '3.0', name: 'Dark Brown', hex: '#2c1a0e', category: 'Brown' },
-    { id: '4.0', name: 'Medium Brown', hex: '#4a2c1a', category: 'Brown' },
-    { id: '4.3', name: 'Golden Brown', hex: '#5c3316', category: 'Brown' },
-    { id: '5.0', name: 'Light Brown', hex: '#7a4a2a', category: 'Brown' },
-    { id: '5.3', name: 'Caramel Latte', hex: '#9b6a38', category: 'Brown' },
-    { id: '5.6', name: 'Burgundy Red', hex: '#6b1a2a', category: 'Red' },
-    { id: '6.0', name: 'Dark Blonde', hex: '#a07840', category: 'Blonde' },
-    { id: '6.4', name: 'Copper', hex: '#b55c25', category: 'Red' },
-    { id: '7.0', name: 'Medium Blonde', hex: '#c4965a', category: 'Blonde' },
-    { id: '7.4', name: 'Copper Ginger', hex: '#c0622a', category: 'Red' },
-    { id: '8.0', name: 'Light Blonde', hex: '#d4b06a', category: 'Blonde' },
-    { id: '9.0', name: 'Very Light Blonde', hex: '#e8d090', category: 'Blonde' },
-    { id: '10.1', name: 'Platinum Blonde', hex: '#f0e8d8', category: 'Blonde' },
-    { id: 'FB', name: 'Fire Red', hex: '#cc2200', category: 'Red' },
-    { id: 'PB', name: 'Pearl Blonde', hex: '#f5f0e8', category: 'Blonde' },
-    { id: 'DB', name: 'Dark Mahogany', hex: '#3d1a1a', category: 'Brown' },
+    { id: '1.0', name: 'Natural Black', hex: '#0d0d0d', category: 'Black' },
+    { id: '3.0', name: 'Dark Brown', hex: '#2c1a0e', category: 'Brown' }
   ]
 };
 
