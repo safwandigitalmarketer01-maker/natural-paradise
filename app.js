@@ -410,7 +410,6 @@
     document.getElementById('checkout-processing-container').style.display = 'none';
     document.getElementById('checkout-success-container').style.display = 'none';
     document.getElementById('checkout-form').reset();
-    togglePaymentFields('cod');
     updateCheckoutSummary();
     closeCart();
     modal.classList.add('open');
@@ -435,35 +434,14 @@
     }
     document.getElementById('checkout-shipping').textContent = ship === 0 ? 'Free' : formatPrice(ship);
     document.getElementById('checkout-total').textContent = formatPrice(total);
-    const method = document.querySelector('input[name="payment-method"]:checked')?.value || 'cod';
     const btn = document.getElementById('checkout-submit-btn');
     if (btn) {
-      btn.textContent = method === 'online' ? `Pay & Confirm Order (${formatPrice(total)})` : `Confirm Order (${formatPrice(total)})`;
+      btn.textContent = `Pay & Confirm Order (${formatPrice(total)})`;
     }
   }
 
   function togglePaymentFields(method) {
-    const cardFields = document.getElementById('card-fields-container');
-    const labelCod = document.getElementById('label-cod');
-    const labelOnline = document.getElementById('label-online');
-    if (method === 'online') {
-      cardFields.style.display = 'block';
-      labelOnline.classList.add('active');
-      labelCod.classList.remove('active');
-      document.getElementById('card-holder').setAttribute('required', 'true');
-      document.getElementById('card-number').setAttribute('required', 'true');
-      document.getElementById('card-expiry').setAttribute('required', 'true');
-      document.getElementById('card-cvv').setAttribute('required', 'true');
-    } else {
-      cardFields.style.display = 'none';
-      labelCod.classList.add('active');
-      labelOnline.classList.remove('active');
-      document.getElementById('card-holder').removeAttribute('required');
-      document.getElementById('card-number').removeAttribute('required');
-      document.getElementById('card-expiry').removeAttribute('required');
-      document.getElementById('card-cvv').removeAttribute('required');
-    }
-    updateCheckoutSummary();
+    // Compatibility stub
   }
 
   function formatCardNumber(input) {
@@ -487,17 +465,15 @@
 
   function processCheckout(event) {
     event.preventDefault();
-    const method = document.querySelector('input[name="payment-method"]:checked')?.value || 'cod';
-    if (method === 'online') {
-      const holder = document.getElementById('card-holder').value.trim();
-      const num = document.getElementById('card-number').value.replace(/\s+/g, '');
-      const exp = document.getElementById('card-expiry').value;
-      const cvv = document.getElementById('card-cvv').value;
-      if (!holder) { showToast('Please enter cardholder name', 'error', '💳'); return; }
-      if (num.length < 15) { showToast('Please enter a valid credit card number', 'error', '💳'); return; }
-      if (!/^\d{2}\/\d{2}$/.test(exp)) { showToast('Expiry date must be in MM/YY format', 'error', '💳'); return; }
-      if (cvv.length < 3) { showToast('Please enter a valid CVV', 'error', '💳'); return; }
-    }
+    const holder = document.getElementById('card-holder').value.trim();
+    const num = document.getElementById('card-number').value.replace(/\s+/g, '');
+    const exp = document.getElementById('card-expiry').value;
+    const cvv = document.getElementById('card-cvv').value;
+    if (!holder) { showToast('Please enter cardholder name', 'error', '💳'); return; }
+    if (num.length < 15) { showToast('Please enter a valid credit card number', 'error', '💳'); return; }
+    if (!/^\d{2}\/\d{2}$/.test(exp)) { showToast('Expiry date must be in MM/YY format', 'error', '💳'); return; }
+    if (cvv.length < 3) { showToast('Please enter a valid CVV', 'error', '💳'); return; }
+    
     const name = document.getElementById('shipping-name').value.trim();
     const phone = document.getElementById('shipping-phone').value.trim();
     const city = document.getElementById('shipping-city').value;
@@ -505,7 +481,7 @@
     const refNum = `NP-2026-${Math.floor(1000 + Math.random() * 9000)}`;
     const { sub, comboDiscount, disc, ship, total } = cartTotal();
     lastOrderInfo = {
-      refNum, name, phone, city, address, method, sub, comboDiscount, disc, ship, total,
+      refNum, name, phone, city, address, method: 'online', sub, comboDiscount, disc, ship, total,
       items: state.cart.map(i => ({ name: i.name, qty: i.qty, price: i.price, size: i.size || '' }))
     };
     document.getElementById('checkout-form-container').style.display = 'none';
@@ -514,7 +490,7 @@
       document.getElementById('checkout-processing-container').style.display = 'none';
       document.getElementById('checkout-success-container').style.display = 'block';
       document.getElementById('success-ref-num').textContent = '#' + refNum;
-      document.getElementById('success-payment-status').textContent = method === 'online' ? 'Payment Status: Paid via Card (Secure)' : 'Payment Status: Cash on Delivery';
+      document.getElementById('success-payment-status').textContent = 'Payment Status: Paid via Card (Secure)';
       document.getElementById('success-name').textContent = name;
       document.getElementById('success-phone').textContent = phone;
       document.getElementById('success-city').textContent = city;

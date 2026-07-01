@@ -846,12 +846,12 @@
     
     <!-- Step 1: Checkout Form -->
     <div id="checkout-form-container">
-      <h3 id="checkout-heading" class="checkout-title">Secure Checkout</h3>
-      <p class="checkout-subtitle">Enter your delivery address and choose a payment method to confirm your order.</p>
+      <h3 id="checkout-heading" class="checkout-title">Billing & Delivery</h3>
+      <p class="checkout-subtitle">Please enter your billing/delivery details and complete your secure online card payment below.</p>
       
       <form id="checkout-form" onsubmit="NP.processCheckout(event)">
         <!-- Shipping Information -->
-        <div class="form-section-title">🚚 Shipping Information</div>
+        <div class="form-section-title">🚚 Delivery Address</div>
         
         <div class="form-group">
           <label for="shipping-name">Full Name *</label>
@@ -881,46 +881,25 @@
           <textarea id="shipping-address" required placeholder="Street, Building/Villa Name, Apartment No., Area..." rows="3"></textarea>
         </div>
 
-        <!-- Payment Method -->
-        <div class="form-section-title">💳 Payment Method</div>
-        <div class="payment-options">
-          <label class="payment-option-label active" id="label-cod">
-            <input type="radio" name="payment-method" value="cod" checked onchange="NP.togglePaymentFields('cod')">
-            <span class="option-icon">💵</span>
-            <span class="option-text">
-              <strong>Cash on Delivery (COD)</strong>
-              <span class="option-desc">Pay with cash or card upon delivery.</span>
-            </span>
-          </label>
-          
-          <label class="payment-option-label" id="label-online">
-            <input type="radio" name="payment-method" value="online" onchange="NP.togglePaymentFields('online')">
-            <span class="option-icon">💳</span>
-            <span class="option-text">
-              <strong>Online Card Payment</strong>
-              <span class="option-desc">Pay securely now using credit/debit card.</span>
-            </span>
-          </label>
-        </div>
-
         <!-- Online Card Fields -->
-        <div id="card-fields-container" class="card-fields-container" style="display:none">
+        <div class="form-section-title">💳 Secure Credit/Debit Card Payment</div>
+        <div id="card-fields-container" class="card-fields-container">
           <div class="form-group">
             <label for="card-holder">Cardholder Name *</label>
-            <input type="text" id="card-holder" placeholder="e.g. John Doe">
+            <input type="text" id="card-holder" required placeholder="e.g. John Doe">
           </div>
           <div class="form-group">
             <label for="card-number">Card Number *</label>
-            <input type="text" id="card-number" placeholder="4111 2222 3333 4444" maxlength="19" oninput="NP.formatCardNumber(this)">
+            <input type="text" id="card-number" required placeholder="4111 2222 3333 4444" maxlength="19" oninput="NP.formatCardNumber(this)">
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
             <div class="form-group">
               <label for="card-expiry">Expiry Date *</label>
-              <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" oninput="NP.formatCardExpiry(this)">
+              <input type="text" id="card-expiry" required placeholder="MM/YY" maxlength="5" oninput="NP.formatCardExpiry(this)">
             </div>
             <div class="form-group">
               <label for="card-cvv">CVV *</label>
-              <input type="password" id="card-cvv" placeholder="123" maxlength="4">
+              <input type="password" id="card-cvv" required placeholder="123" maxlength="4">
             </div>
           </div>
         </div>
