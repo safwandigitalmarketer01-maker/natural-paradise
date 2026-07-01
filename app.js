@@ -105,7 +105,7 @@
 
     const baseSub = sub - comboDiscount;
     const disc = state.coupon ? (baseSub * COUPONS[state.coupon] / 100) : 0;
-    const ship = baseSub > 150 ? 0 : 9.99;
+    const ship = baseSub >= 200 ? 0 : 20;
     return { sub, comboDiscount, disc, ship, total: baseSub - disc + ship };
   }
 
