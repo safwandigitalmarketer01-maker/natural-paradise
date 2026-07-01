@@ -1546,12 +1546,45 @@ p  { font-size: 0.95rem; color: var(--color-text-muted); }
   gap: 1.25rem;
   width: auto;
 }
-@media (max-width: 576px) {
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: var(--header-h);
+    background: var(--color-dark-2);
+  }
+  .hero-bg {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    z-index: 1;
+  }
+  .hero-bg::after {
+    display: none; /* Keep slide text bright and clear on mobile */
+  }
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    transform: none !important; /* Disable zoom on mobile for performance */
+  }
   .hero-floating-ctas {
-    bottom: 2.5rem;
-    width: calc(100% - 3rem);
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    box-sizing: border-box;
+    background: var(--color-dark-2);
+    border-bottom: 1px solid var(--color-border);
   }
   .hero-floating-ctas .btn {
     width: 100%;
