@@ -19,7 +19,7 @@
   };
 
   const COUPONS = { 'PARADISE10': 10, 'WELCOME15': 15, 'VIP20': 20 };
-  const WHATSAPP_NUMBER = '971500000000'; // Replace with real number
+  const WHATSAPP_NUMBER = '971555303822';
 
   // ── HELPERS ─────────────────────────────────────────────
   function slugify(text) { return text.toLowerCase().replace(/\s+/g, '-'); }
@@ -411,17 +411,17 @@
     summary += `🚚 Shipping: ${ship === 0 ? 'Free' : formatPrice(ship)}\n`;
     summary += `💵 Total: ${formatPrice(total)}`;
     const msg = encodeURIComponent(`Hello Natural Paradise! 🌿\n\nI'd like to order:\n${items}\n\n${summary}\n\nPlease guide me through the payment process. Thank you!`);
-    window.open(`https://wa.me/qr/XNFBAW4ZILWYE1?text=${msg}`, '_blank');
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
   }
 
   function whatsappProduct(p) {
     const msg = encodeURIComponent(`Hello Natural Paradise! 🌿\n\nI'm interested in:\n✨ ${p.name}\n💰 Price: ${formatPrice(p.price)}\n\nPlease help me place an order. Thank you!`);
-    window.open(`https://wa.me/qr/XNFBAW4ZILWYE1?text=${msg}`, '_blank');
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
   }
 
   function whatsappFloat() {
     const msg = encodeURIComponent(`Hello Natural Paradise! 🌿\n\nI'd like to know more about your luxury perfumes and hair colours. Can you assist me?`);
-    window.open(`https://wa.me/qr/XNFBAW4ZILWYE1?text=${msg}`, '_blank');
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
   }
 
   // ── PANELS ────────────────────────────────────────────────
