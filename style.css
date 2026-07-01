@@ -1095,3 +1095,158 @@ p  { font-size: 0.95rem; color: var(--color-text-muted); }
 .social-btn:hover .social-icon-img {
   transform: scale(1.1);
 }
+
+/* ── PERFUME LAB TABS & GALLERY ──────────────────────────── */
+.lab-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  margin-top: 1rem;
+}
+
+.lab-tab-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(197, 162, 89, 0.15);
+  color: var(--color-text-dim);
+  padding: 0.75rem 2rem;
+  font-family: var(--font-header);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: var(--transition-normal);
+}
+
+.lab-tab-btn:hover {
+  border-color: var(--color-gold);
+  color: var(--color-text);
+  background: rgba(197, 162, 89, 0.05);
+}
+
+.lab-tab-btn.active {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-bg);
+  box-shadow: 0 4px 15px rgba(197, 162, 89, 0.3);
+  font-weight: 600;
+}
+
+.lab-tab-content {
+  display: none;
+}
+
+.lab-tab-content.active {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Inspired Promo Banner */
+.inspired-promo-banner {
+  background: linear-gradient(135deg, rgba(20, 16, 8, 0.95), rgba(10, 8, 4, 0.95));
+  border: 1px solid rgba(197, 162, 89, 0.3);
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.inspired-promo-banner ::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.promo-badge {
+  display: inline-block;
+  background: rgba(197, 162, 89, 0.1);
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold);
+  padding: 0.25rem 1rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.inspired-promo-banner h2 {
+  font-family: var(--font-header);
+  font-size: 2rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  letter-spacing: 0.03em;
+}
+
+.inspired-promo-banner .price-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.price-single {
+  font-size: 1.2rem;
+  color: var(--color-text);
+}
+
+.price-combo {
+  font-size: 1.4rem;
+  color: var(--color-gold);
+  font-weight: 500;
+}
+
+.inspired-promo-banner .divider {
+  color: rgba(197, 162, 89, 0.3);
+  font-size: 1.5rem;
+}
+
+.inspired-promo-banner p {
+  color: var(--color-text-dim);
+  font-size: 0.9rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Inspired Grid */
+.inspired-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 992px) {
+  .inspired-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .inspired-products-grid {
+    grid-template-columns: 1fr;
+  }
+  .inspired-promo-banner {
+    padding: 1.75rem 1.25rem;
+  }
+  .inspired-promo-banner h2 {
+    font-size: 1.5rem;
+  }
+  .inspired-promo-banner .price-box {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .inspired-promo-banner .divider {
+    display: none;
+  }
+}

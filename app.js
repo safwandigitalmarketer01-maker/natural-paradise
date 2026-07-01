@@ -97,9 +97,16 @@
   // ── CART ─────────────────────────────────────────────────
   function cartTotal() {
     const sub = state.cart.reduce((a, i) => a + i.price * i.qty, 0);
-    const disc = state.coupon ? (sub * COUPONS[state.coupon] / 100) : 0;
-    const ship = sub > 150 ? 0 : 9.99;
-    return { sub, disc, ship, total: sub - disc + ship };
+    // Combo offer: Any 3 items from inspired collection (np-*) for 100 AED
+    const inspiredQty = state.cart
+      .filter(i => i.id.startsWith('np-'))
+      .reduce((a, i) => a + i.qty, 0);
+    const comboDiscount = Math.floor(inspiredQty / 3) * 20;
+
+    const baseSub = sub - comboDiscount;
+    const disc = state.coupon ? (baseSub * COUPONS[state.coupon] / 100) : 0;
+    const ship = baseSub > 150 ? 0 : 9.99;
+    return { sub, comboDiscount, disc, ship, total: baseSub - disc + ship };
   }
 
   function addToCart(productId, qty = 1) {
@@ -174,7 +181,7 @@
       </div>
     `).join('');
 
-    const { sub, disc, ship, total } = cartTotal();
+    const { sub, comboDiscount, disc, ship, total } = cartTotal();
     if (footer) footer.innerHTML = `
       <div class="coupon-row">
         <input class="coupon-input" id="coupon-input" placeholder="Coupon code (e.g. PARADISE10)" value="${state.coupon || ''}">
@@ -182,7 +189,8 @@
       </div>
       <div class="cart-summary">
         <div class="cart-summary-row"><span>Subtotal</span><span>${formatPrice(sub)}</span></div>
-        ${disc > 0 ? `<div class="cart-summary-row" style="color:var(--color-success)"><span>Discount (${COUPONS[state.coupon]}%)</span><span>−${formatPrice(disc)}</span></div>` : ''}
+        ${comboDiscount > 0 ? `<div class="cart-summary-row" style="color:var(--color-success)"><span>Combo Discount</span><span>−${formatPrice(comboDiscount)}</span></div>` : ''}
+        ${disc > 0 ? `<div class="cart-summary-row" style="color:var(--color-success)"><span>Discount (${state.coupon ? COUPONS[state.coupon] : 0}%)</span><span>−${formatPrice(disc)}</span></div>` : ''}
         <div class="cart-summary-row"><span>Shipping</span><span>${ship === 0 ? '<span style="color:var(--color-success)">Free</span>' : formatPrice(ship)}</span></div>
         <div class="cart-summary-row total"><span>Total</span><span class="cart-price">${formatPrice(total)}</span></div>
       </div>
@@ -395,9 +403,14 @@
 
   function whatsappCheckout() {
     if (state.cart.length === 0) { showToast('Your cart is empty!', 'error', '🛒'); return; }
-    const { total } = cartTotal();
+    const { sub, comboDiscount, disc, ship, total } = cartTotal();
     const items = state.cart.map(i => `• ${i.name} (x${i.qty}) — ${formatPrice(i.price * i.qty)}`).join('\n');
-    const msg = encodeURIComponent(`Hello Natural Paradise! 🌿\n\nI'd like to order:\n${items}\n\n💰 Total: ${formatPrice(total)}\n${state.coupon ? `🏷️ Coupon: ${state.coupon}\n` : ''}\nPlease guide me through the payment process. Thank you!`);
+    let summary = `💰 Subtotal: ${formatPrice(sub)}\n`;
+    if (comboDiscount > 0) summary += `🎁 Combo Offer Discount: -${formatPrice(comboDiscount)}\n`;
+    if (disc > 0) summary += `🏷️ Coupon Discount (${state.coupon ? COUPONS[state.coupon] : 0}%): -${formatPrice(disc)}\n`;
+    summary += `🚚 Shipping: ${ship === 0 ? 'Free' : formatPrice(ship)}\n`;
+    summary += `💵 Total: ${formatPrice(total)}`;
+    const msg = encodeURIComponent(`Hello Natural Paradise! 🌿\n\nI'd like to order:\n${items}\n\n${summary}\n\nPlease guide me through the payment process. Thank you!`);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
   }
 
@@ -686,6 +699,15 @@
     }
   }
 
+  function switchLabTab(tabName) {
+    document.querySelectorAll('.lab-tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tabName);
+    });
+    document.querySelectorAll('.lab-tab-content').forEach(content => {
+      content.classList.toggle('active', content.id === 'lab-tab-' + tabName);
+    });
+  }
+
   // ── PUBLIC API ────────────────────────────────────────────
   window.NP = {
     addToCart, removeFromCart, updateQty, applyCoupon,
@@ -696,6 +718,7 @@
     selectNote, addMixToCart,
     selectShade, toggleFaq,
     subscribeNewsletter, openMobileMenu, closeMobileMenu,
+    switchLabTab,
   };
 
   document.addEventListener('DOMContentLoaded', init);
