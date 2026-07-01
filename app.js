@@ -152,8 +152,8 @@
 
   function updateCartUI() {
     const countEls = document.querySelectorAll('.cart-count');
-    const total = state.cart.reduce((a, i) => a + i.qty, 0);
-    countEls.forEach(el => { el.textContent = total; el.style.display = total > 0 ? 'flex' : 'none'; });
+    const totalQty = state.cart.reduce((a, i) => a + i.qty, 0);
+    countEls.forEach(el => { el.textContent = totalQty; el.style.display = totalQty > 0 ? 'flex' : 'none'; });
 
     const body = document.getElementById('cart-body');
     const footer = document.getElementById('cart-footer');

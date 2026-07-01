@@ -113,7 +113,7 @@ const PRODUCTS = {
       image: 'assets/signature_perfume.jpg',
       badge: 'Bestseller', tag: 'arabic',
       inStock: true, rating: 5, reviews: [
-        { name: 'Fatima Khalil', rating: 5, date: 'June 2026', comment: 'This reminds me of my grandmother's home. Deeply beautiful and authentic.' },
+        { name: 'Fatima Khalil', rating: 5, date: 'June 2026', comment: "This reminds me of my grandmother's home. Deeply beautiful and authentic." },
         { name: 'Omar Bin Saeed', rating: 5, date: 'May 2026', comment: 'The best oud I have smelled outside of the Gulf. Highly recommended.' }
       ]
     },
