@@ -616,7 +616,17 @@
   }
 
   function whatsappCheckout() {
-    checkout();
+    if (state.cart.length === 0) { showToast('Your cart is empty!', 'error', '⚠️'); return; }
+    const { sub, comboDiscount, disc, ship, total } = cartTotal();
+    const itemsText = state.cart.map(i => `• ${i.name} (x${i.qty}) ${i.size ? `[${i.size}]` : ''} — ${formatPrice(i.price * i.qty)}`).join('\n');
+    let summary = `💰 Subtotal: ${formatPrice(sub)}\n`;
+    if (comboDiscount > 0) summary += `🎁 Combo Offer Saving: -${formatPrice(comboDiscount)}\n`;
+    if (disc > 0) summary += `🏷️ Coupon Saving: -${formatPrice(disc)}\n`;
+    summary += `🚚 Shipping: ${ship === 0 ? 'Free' : formatPrice(ship)}\n`;
+    summary += `💵 Grand Total: ${formatPrice(total)}`;
+    
+    const text = `Hello Natural Paradise! 🌿\n\n🛍️ *NEW WHATSAPP ORDER REQUEST*\n\n📦 *ORDERED ITEMS:*\n${itemsText}\n\n${summary}\n\nPlease help me complete my order. Thank you!`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
   }
 
   function whatsappProduct(p) {
