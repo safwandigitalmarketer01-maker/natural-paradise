@@ -373,91 +373,86 @@
      CUSTOM PERFUME MIXING SERVICE
 ════════════════════════════════════════════════════════════ -->
 <!-- ═══════════════════════════════════════════════════════════
-     PERFUME LAB & INSPIRED MIXES
+     PERFUME BLENDING STUDIO & INSPIRED MIXES
 ════════════════════════════════════════════════════════════ -->
 <section class="section mixing-section" id="mixing-section" aria-labelledby="mixing-heading">
   <div class="container">
-    <div style="text-align:center;margin-bottom:2rem" class="reveal">
-      <span class="section-label" style="display:inline-block">Natural Paradise Perfume Lab</span>
-      <h2 class="section-title" id="mixing-heading" style="margin-bottom:1rem">Welcome to the<br><em>Perfume Lab</em></h2>
-      <p style="font-size:0.9rem;max-width:600px;margin:0 auto;color:var(--color-text-dim)">Create your own bespoke signature scent from raw ingredients, or explore our premium designer-inspired collection mixed in our lab.</p>
+    <div style="text-align:center;margin-bottom:3rem" class="reveal">
+      <span class="section-label" style="display:inline-block">Natural Paradise Perfume Blending Studio</span>
+      <h2 class="section-title" id="mixing-heading" style="margin-bottom:1rem">Welcome to the<br><em>Perfume Blending Studio</em></h2>
+      <p style="font-size:0.9rem;max-width:600px;margin:0 auto;color:var(--color-text-dim)">Create your own bespoke signature scent from raw ingredients, or explore our premium designer-inspired collection mixed in our studio.</p>
     </div>
 
-    <!-- Lab Tab Selector -->
-    <div class="lab-tabs reveal">
-      <button class="lab-tab-btn active" data-tab="mixer" onclick="NP.switchLabTab('mixer')">🧪 Perfume Blending Studio</button>
-      <button class="lab-tab-btn" data-tab="inspired" onclick="NP.switchLabTab('inspired')">✨ Inspired Perfume Mixes</button>
-    </div>
-
-    <!-- Tab 1: Custom Mixer -->
-    <div id="lab-tab-mixer" class="lab-tab-content active">
-      <div class="mixing-layout">
-        <!-- Visual -->
-        <div class="mixing-visual reveal">
-          <div class="mixing-bottle" id="mixing-bottle">
-            <div style="font-size:2rem">🧪</div>
-            <div class="mixing-bottle-label" id="mixing-bottle-name">Your Signature Blend</div>
-            <div class="mixing-notes-list">
-              <div class="mixing-note-entry empty" id="mixer-top-note">— Select Top Note —</div>
-              <div class="mixing-note-entry empty" id="mixer-mid-note">— Select Heart Note —</div>
-              <div class="mixing-note-entry empty" id="mixer-base-note">— Select Base Note —</div>
-            </div>
-            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-dim);margin-top:0.75rem">Natural Paradise</div>
+    <!-- Part 1: Bespoke Custom Mixer -->
+    <div class="mixing-layout" style="margin-bottom:4rem">
+      <!-- Visual -->
+      <div class="mixing-visual reveal">
+        <div class="mixing-bottle" id="mixing-bottle">
+          <div style="font-size:2rem">🧪</div>
+          <div class="mixing-bottle-label" id="mixing-bottle-name">Your Signature Blend</div>
+          <div class="mixing-notes-list">
+            <div class="mixing-note-entry empty" id="mixer-top-note">— Select Top Note —</div>
+            <div class="mixing-note-entry empty" id="mixer-mid-note">— Select Heart Note —</div>
+            <div class="mixing-note-entry empty" id="mixer-base-note">— Select Base Note —</div>
           </div>
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-dim);margin-top:0.75rem">Natural Paradise</div>
         </div>
-        <!-- UI -->
-        <div class="mixing-ui reveal">
-          <span class="mixing-section-label" style="font-size:1.1rem;font-weight:600;margin-bottom:1rem;color:var(--color-gold)">Perfume Blending Studio</span>
-          <p style="font-size:0.85rem;margin-bottom:1.5rem;color:var(--color-text-dim)">Select a top, heart, and base note to craft a unique personal blend. Our perfumers will formulate it by hand.</p>
+      </div>
+      <!-- UI -->
+      <div class="mixing-ui reveal">
+        <span class="mixing-section-label" style="font-size:1.1rem;font-weight:600;margin-bottom:1rem;color:var(--color-gold)">Bespoke Blend Creator</span>
+        <p style="font-size:0.85rem;margin-bottom:1.5rem;color:var(--color-text-dim)">Select a top, heart, and base note to craft a unique personal blend. Our perfumers will formulate it by hand.</p>
 
-          <!-- Top Notes -->
-          <span class="mixing-section-label">① Top Notes (First Impression)</span>
-          <div class="mixing-notes-grid" id="mixer-top-grid">
-            <!-- Rendered by JS -->
-          </div>
+        <!-- Top Notes -->
+        <span class="mixing-section-label">① Top Notes (First Impression)</span>
+        <div class="mixing-notes-grid" id="mixer-top-grid">
+          <!-- Rendered by JS -->
+        </div>
 
-          <!-- Middle Notes -->
-          <span class="mixing-section-label">② Heart Notes (The Soul)</span>
-          <div class="mixing-notes-grid" id="mixer-middle-grid">
-            <!-- Rendered by JS -->
-          </div>
+        <!-- Middle Notes -->
+        <span class="mixing-section-label">② Heart Notes (The Soul)</span>
+        <div class="mixing-notes-grid" id="mixer-middle-grid">
+          <!-- Rendered by JS -->
+        </div>
 
-          <!-- Base Notes -->
-          <span class="mixing-section-label">③ Base Notes (The Foundation)</span>
-          <div class="mixing-notes-grid" id="mixer-base-grid">
-            <!-- Rendered by JS -->
-          </div>
+        <!-- Base Notes -->
+        <span class="mixing-section-label">③ Base Notes (The Foundation)</span>
+        <div class="mixing-notes-grid" id="mixer-base-grid">
+          <!-- Rendered by JS -->
+        </div>
 
-          <input class="mixing-name-input" id="mixer-name-input" type="text" placeholder="Name your creation (e.g. Desert Sunrise)…" aria-label="Name your custom perfume">
-          <div class="mixing-price" id="mixer-price">Custom Blend Price: <strong>AED 75</strong> <span style="font-size:0.8rem;font-weight:400;color:var(--color-text-dim)">/ 50ml</span></div>
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
-            <button class="btn btn-primary" onclick="NP.addMixToCart()" id="mixer-add-cart-btn">
-              🛒 Add Custom Blend to Cart
-            </button>
-            <button class="btn btn-whatsapp" onclick="NP.whatsappFloat()">
-              📱 Order via WhatsApp
-            </button>
-          </div>
+        <input class="mixing-name-input" id="mixer-name-input" type="text" placeholder="Name your creation (e.g. Desert Sunrise)…" aria-label="Name your custom perfume">
+        <div class="mixing-price" id="mixer-price">Custom Blend Price: <strong>AED 75</strong> <span style="font-size:0.8rem;font-weight:400;color:var(--color-text-dim)">/ 50ml</span></div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="NP.addMixToCart()" id="mixer-add-cart-btn">
+            🛒 Add Custom Blend to Cart
+          </button>
+          <button class="btn btn-whatsapp" onclick="NP.whatsappFloat()">
+            📱 Order via WhatsApp
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Tab 2: Inspired Perfume Mixes -->
-    <div id="lab-tab-inspired" class="lab-tab-content">
-      <div class="inspired-promo-banner reveal">
-        <div class="promo-badge">🎉 Special Lab Offer</div>
-        <h2>Inspired Perfume Mix (40ml)</h2>
-        <div class="price-box">
-          <span class="price-single"><strong>AED 40.00</strong> / 1 Piece</span>
-          <span class="divider">|</span>
-          <span class="price-combo"><strong>Any 3 Pieces</strong> for <strong>AED 100.00</strong></span>
-        </div>
-        <p>Choose from our selection of premium designer-inspired creations formulated in our Perfume Lab. Add any three to your cart to automatically apply the Combo Offer discount!</p>
+    <!-- Elegant Divider -->
+    <div style="margin: 5rem 0; border-top: 1px solid rgba(197, 162, 89, 0.15); position: relative;" class="reveal">
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--color-bg); padding: 0 1.5rem; color: var(--color-gold); font-family: var(--font-header); letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.8rem;">Or Choose Inspired Scent Mixes</div>
+    </div>
+
+    <!-- Part 2: Inspired Perfume Mixes -->
+    <div class="inspired-promo-banner reveal">
+      <div class="promo-badge">🎉 Special Studio Offer</div>
+      <h2>Inspired Perfume Mix (40ml)</h2>
+      <div class="price-box">
+        <span class="price-single"><strong>AED 40.00</strong> / 1 Piece</span>
+        <span class="divider">|</span>
+        <span class="price-combo"><strong>Any 3 Pieces</strong> for <strong>AED 100.00</strong></span>
       </div>
-      
-      <div class="inspired-products-grid" id="inspired-lab-grid">
-        <!-- Rendered by JS -->
-      </div>
+      <p>Choose from our selection of premium designer-inspired creations formulated in our Perfume Blending Studio. Add any three to your cart to automatically apply the Combo Offer discount!</p>
+    </div>
+    
+    <div class="inspired-products-grid" id="inspired-lab-grid">
+      <!-- Rendered by JS -->
     </div>
   </div>
 </section>
