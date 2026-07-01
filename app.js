@@ -397,6 +397,7 @@
   }
 
   let lastOrderInfo = null;
+  let activeCheckoutStep = 1;
 
   function checkout() {
     if (state.cart.length === 0) { showToast('Your cart is empty!', 'error', '🛒'); return; }
@@ -406,10 +407,24 @@
   function openCheckoutModal() {
     const modal = document.getElementById('checkout-modal');
     if (!modal) return;
-    document.getElementById('checkout-form-container').style.display = 'block';
+    document.getElementById('checkout-grid').style.display = 'grid';
     document.getElementById('checkout-processing-container').style.display = 'none';
     document.getElementById('checkout-success-container').style.display = 'none';
-    document.getElementById('checkout-form').reset();
+    document.querySelectorAll('.checkout-step').forEach(el => {
+      el.classList.remove('completed');
+    });
+    document.getElementById('step-1-form').style.display = 'block';
+    document.getElementById('step-1-summary').style.display = 'none';
+    document.getElementById('step-2-form').style.display = 'block';
+    document.getElementById('step-2-summary').style.display = 'none';
+    document.getElementById('shipping-name').value = '';
+    document.getElementById('shipping-phone').value = '';
+    document.getElementById('shipping-address').value = '';
+    document.getElementById('card-holder').value = '';
+    document.getElementById('card-number').value = '';
+    document.getElementById('card-expiry').value = '';
+    document.getElementById('card-cvv').value = '';
+    setCheckoutStep(1);
     updateCheckoutSummary();
     closeCart();
     modal.classList.add('open');
@@ -422,18 +437,98 @@
     document.body.style.overflow = '';
   }
 
+  function setCheckoutStep(stepNum) {
+    if (stepNum > 1) {
+      const name = document.getElementById('shipping-name').value.trim();
+      const phone = document.getElementById('shipping-phone').value.trim();
+      if (!name || !phone) {
+        if (activeCheckoutStep !== 1) showToast('Please complete Step 1: Contact Details first', 'error', '🔒');
+        return;
+      }
+    }
+    if (stepNum > 2) {
+      const address = document.getElementById('shipping-address').value.trim();
+      if (!address) {
+        if (activeCheckoutStep !== 2) showToast('Please complete Step 2: Delivery Address first', 'error', '🔒');
+        return;
+      }
+    }
+    activeCheckoutStep = stepNum;
+    for (let i = 1; i <= 4; i++) {
+      const container = document.getElementById(`step-${i}-container`);
+      if (container) {
+        container.classList.toggle('active', i === stepNum);
+      }
+    }
+    if (stepNum === 3) {
+      renderStep3Items();
+    }
+  }
+
+  function submitStep1() {
+    const name = document.getElementById('shipping-name').value.trim();
+    const phone = document.getElementById('shipping-phone').value.trim();
+    if (!name) { showToast('Please enter your full name', 'error', '👤'); return; }
+    if (!phone) { showToast('Please enter your phone number', 'error', '📞'); return; }
+    const summary = document.getElementById('step-1-summary');
+    summary.innerHTML = `<strong>Name:</strong> ${name} &nbsp;|&nbsp; <strong>Phone:</strong> ${phone}`;
+    summary.style.display = 'block';
+    document.getElementById('step-1-form').style.display = 'none';
+    document.getElementById('step-1-container').classList.add('completed');
+    setCheckoutStep(2);
+  }
+
+  function submitStep2() {
+    const city = document.getElementById('shipping-city').value;
+    const address = document.getElementById('shipping-address').value.trim();
+    if (!address) { showToast('Please enter your detailed delivery address', 'error', '🚚'); return; }
+    const summary = document.getElementById('step-2-summary');
+    summary.innerHTML = `<strong>Address:</strong> ${address}, ${city}, UAE`;
+    summary.style.display = 'block';
+    document.getElementById('step-2-form').style.display = 'none';
+    document.getElementById('step-2-container').classList.add('completed');
+    setCheckoutStep(3);
+  }
+
+  function submitStep3() {
+    document.getElementById('step-3-container').classList.add('completed');
+    setCheckoutStep(4);
+  }
+
+  function renderStep3Items() {
+    const container = document.getElementById('step-3-list');
+    if (!container) return;
+    container.innerHTML = state.cart.map(item => `
+      <div class="checkout-summary-item">
+        <img class="checkout-summary-item-img" src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2250%22 height=%2250%22><rect width=%2250%22 height=%2250%22 fill=%22%231a1a1a%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23C5A259%22 font-size=%2216%22>✨</text></svg>'">
+        <div class="checkout-summary-item-info">
+          <div class="checkout-summary-item-name">${item.name}</div>
+          <div class="checkout-summary-item-qty">Qty: ${item.qty} ${item.size ? `[${item.size}]` : ''}</div>
+        </div>
+        <div class="checkout-summary-item-price">${formatPrice(item.price * item.qty)}</div>
+      </div>
+    `).join('');
+  }
+
   function updateCheckoutSummary() {
     const { sub, comboDiscount, disc, ship, total } = cartTotal();
-    document.getElementById('checkout-subtotal').textContent = formatPrice(sub);
-    const discRow = document.getElementById('checkout-discount-row');
-    if (comboDiscount > 0 || disc > 0) {
+    const qty = state.cart.reduce((a, i) => a + i.qty, 0);
+    document.getElementById('price-items-label').textContent = `Price (${qty} item${qty !== 1 ? 's' : ''})`;
+    document.getElementById('price-subtotal').textContent = formatPrice(sub);
+    const discRow = document.getElementById('price-discount-row');
+    const savingMsg = document.getElementById('price-saving-message');
+    const totalSavings = comboDiscount + disc;
+    if (totalSavings > 0) {
       discRow.style.display = 'flex';
-      document.getElementById('checkout-discount').textContent = '−' + formatPrice(comboDiscount + disc);
+      document.getElementById('price-discount').textContent = '−' + formatPrice(totalSavings);
+      savingMsg.textContent = `🎉 You will save ${formatPrice(totalSavings)} on this order`;
+      savingMsg.style.display = 'block';
     } else {
       discRow.style.display = 'none';
+      savingMsg.style.display = 'none';
     }
-    document.getElementById('checkout-shipping').textContent = ship === 0 ? 'Free' : formatPrice(ship);
-    document.getElementById('checkout-total').textContent = formatPrice(total);
+    document.getElementById('price-shipping').textContent = ship === 0 ? 'Free' : formatPrice(ship);
+    document.getElementById('price-total').textContent = formatPrice(total);
     const btn = document.getElementById('checkout-submit-btn');
     if (btn) {
       btn.textContent = `Pay & Confirm Order (${formatPrice(total)})`;
@@ -484,7 +579,7 @@
       refNum, name, phone, city, address, method: 'online', sub, comboDiscount, disc, ship, total,
       items: state.cart.map(i => ({ name: i.name, qty: i.qty, price: i.price, size: i.size || '' }))
     };
-    document.getElementById('checkout-form-container').style.display = 'none';
+    document.getElementById('checkout-grid').style.display = 'none';
     document.getElementById('checkout-processing-container').style.display = 'block';
     setTimeout(() => {
       document.getElementById('checkout-processing-container').style.display = 'none';
@@ -508,7 +603,7 @@
     if (info.disc > 0) summary += `🏷️ Coupon Saving: -${formatPrice(info.disc)}\n`;
     summary += `🚚 Shipping: ${info.ship === 0 ? 'Free' : formatPrice(info.ship)}\n`;
     summary += `💵 Grand Total: ${formatPrice(info.total)}`;
-    const payStatus = info.method === 'online' ? '✅ Paid via Online Card (Secure Gateway)' : '💵 Cash on Delivery (COD)';
+    const payStatus = '✅ Paid via Online Card (Secure Gateway)';
     const text = `Hello Natural Paradise! 🌿\n\n🛍️ *NEW ORDER PLACE REQUEST*\n\n📝 *Order Reference:* #${info.refNum}\n💳 *Payment Method:* ${payStatus}\n\n🚚 *SHIPPING ADDRESS:*\n• *Name:* ${info.name}\n• *Phone:* ${info.phone}\n• *Emirate/City:* ${info.city}\n• *Address:* ${info.address}\n\n📦 *ORDERED ITEMS:*\n${itemsText}\n\n${summary}\n\nPlease confirm my order. Thank you!`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
   }
@@ -831,7 +926,8 @@
     switchLabTab,
     closeCheckoutModal, updateCheckoutSummary, togglePaymentFields,
     formatCardNumber, formatCardExpiry, processCheckout,
-    sendOrderWhatsApp, closeCheckoutSuccess
+    sendOrderWhatsApp, closeCheckoutSuccess,
+    setCheckoutStep, submitStep1, submitStep2, submitStep3
   };
 
   document.addEventListener('DOMContentLoaded', init);
