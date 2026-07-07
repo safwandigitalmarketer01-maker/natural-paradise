@@ -1581,3 +1581,10 @@ p  { font-size: 0.95rem; color: var(--color-text-muted); }
     text-align: center;
   }
 }
+
+/* ── HAIR COLOUR IMAGE SIZE FITTING ─────────────────────────── */
+img[src*="hair_colour.jpg"] {
+  object-fit: contain !important;
+  background-color: #f7f7f7 !important;
+  padding: 6px;
+}
