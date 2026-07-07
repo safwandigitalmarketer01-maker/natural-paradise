@@ -16,6 +16,7 @@
     mixer: { top: null, middle: null, base: null, name: '' },
     selectedShade: null,
     countdownTarget: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 6 * 60 * 60 * 1000),
+    currentUser: null
   };
 
   const COUPONS = { 'PARADISE10': 10, 'WELCOME15': 15, 'VIP20': 20 };
@@ -68,6 +69,22 @@
       localStorage.setItem('np_cart', JSON.stringify(state.cart));
       localStorage.setItem('np_wishlist', JSON.stringify(state.wishlist));
       localStorage.setItem('np_recent', JSON.stringify(state.recentlyViewed));
+      if (state.currentUser) {
+        localStorage.setItem('np_logged_in_user', state.currentUser.email);
+        const users = JSON.parse(localStorage.getItem('np_users') || '[]');
+        const idx = users.findIndex(x => x.email === state.currentUser.email);
+        if (idx !== -1) {
+          users[idx].cart = state.cart;
+          users[idx].wishlist = state.wishlist;
+          users[idx].phone = state.currentUser.phone;
+          users[idx].city = state.currentUser.city;
+          users[idx].address = state.currentUser.address;
+          users[idx].orders = state.currentUser.orders || [];
+          localStorage.setItem('np_users', JSON.stringify(users));
+        }
+      } else {
+        localStorage.removeItem('np_logged_in_user');
+      }
     } catch(e) {}
   }
 
@@ -76,7 +93,200 @@
       state.cart = JSON.parse(localStorage.getItem('np_cart') || '[]');
       state.wishlist = JSON.parse(localStorage.getItem('np_wishlist') || '[]');
       state.recentlyViewed = JSON.parse(localStorage.getItem('np_recent') || '[]');
+      
+      const loggedInEmail = localStorage.getItem('np_logged_in_user');
+      if (loggedInEmail) {
+        const users = JSON.parse(localStorage.getItem('np_users') || '[]');
+        const u = users.find(x => x.email === loggedInEmail);
+        if (u) {
+          state.currentUser = u;
+          state.cart = u.cart || [];
+          state.wishlist = u.wishlist || [];
+        }
+      }
     } catch(e) {}
+  }
+
+  // ── CUSTOMER ACCOUNT & AUTHENTICATION ──────────────────────
+  function openAuthModal() {
+    const modal = document.getElementById('auth-modal');
+    if (!modal) return;
+    if (state.currentUser) {
+      switchAuthView('dashboard');
+    } else {
+      switchAuthView('login');
+    }
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAuthModal() {
+    const modal = document.getElementById('auth-modal');
+    if (modal) modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function switchAuthView(view) {
+    const login = document.getElementById('auth-login-view');
+    const signup = document.getElementById('auth-signup-view');
+    const dash = document.getElementById('auth-dashboard-view');
+    if (login) login.style.display = view === 'login' ? 'block' : 'none';
+    if (signup) signup.style.display = view === 'signup' ? 'block' : 'none';
+    if (dash) dash.style.display = view === 'dashboard' ? 'block' : 'none';
+    if (state.currentUser && view === 'dashboard') {
+      updateAuthUI();
+    }
+  }
+
+  function handleLogin(e) {
+    if (e) e.preventDefault();
+    const email = document.getElementById('auth-email').value.trim().toLowerCase();
+    const password = document.getElementById('auth-password').value;
+    
+    if (!email || !password) { showToast('Please fill all fields', 'error', '🔒'); return; }
+    
+    const users = JSON.parse(localStorage.getItem('np_users') || '[]');
+    const user = users.find(u => u.email === email && u.password === password);
+    if (!user) {
+      showToast('Invalid email or password', 'error', '❌');
+      return;
+    }
+    
+    state.currentUser = user;
+    
+    // Merge guest cart items
+    const guestCart = state.cart;
+    const userCart = user.cart || [];
+    guestCart.forEach(gItem => {
+      const ex = userCart.find(uItem => uItem.id === gItem.id);
+      if (ex) {
+        ex.qty += gItem.qty;
+      } else {
+        userCart.push(gItem);
+      }
+    });
+    state.cart = userCart;
+    
+    // Merge wishlist
+    const guestWish = state.wishlist;
+    const userWish = user.wishlist || [];
+    guestWish.forEach(wId => {
+      if (!userWish.includes(wId)) userWish.push(wId);
+    });
+    state.wishlist = userWish;
+    
+    saveState();
+    updateAuthUI();
+    updateCartUI();
+    updateWishlistUI();
+    switchAuthView('dashboard');
+    showToast(`Welcome back, ${user.name}!`, 'success', '👤');
+  }
+
+  function handleSignup(e) {
+    if (e) e.preventDefault();
+    const name = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim().toLowerCase();
+    const phone = document.getElementById('reg-phone').value.trim();
+    const password = document.getElementById('reg-password').value;
+    
+    if (!name || !email || !phone || !password) {
+      showToast('Please fill all fields', 'error', '⚠️');
+      return;
+    }
+    
+    const users = JSON.parse(localStorage.getItem('np_users') || '[]');
+    if (users.some(u => u.email === email)) {
+      showToast('An account with this email already exists', 'error', '⚠️');
+      return;
+    }
+    
+    const newUser = {
+      name, email, phone, password,
+      cart: state.cart,
+      wishlist: state.wishlist,
+      orders: [],
+      city: 'Dubai',
+      address: ''
+    };
+    
+    users.push(newUser);
+    localStorage.setItem('np_users', JSON.stringify(users));
+    state.currentUser = newUser;
+    
+    saveState();
+    updateAuthUI();
+    switchAuthView('dashboard');
+    showToast(`Account created successfully! Welcome, ${name}!`, 'success', '✨');
+  }
+
+  function handleLogout() {
+    state.currentUser = null;
+    state.cart = [];
+    state.wishlist = [];
+    saveState();
+    updateAuthUI();
+    updateCartUI();
+    updateWishlistUI();
+    switchAuthView('login');
+    closeAuthModal();
+    showToast('Signed out successfully', 'gold', '👋');
+  }
+
+  function updateAuthUI() {
+    const dot = document.getElementById('user-status-dot');
+    const mobileLink = document.getElementById('mobile-auth-link');
+    
+    if (state.currentUser) {
+      if (dot) dot.style.display = 'block';
+      if (mobileLink) mobileLink.innerHTML = `👤 My Account (${state.currentUser.name.split(' ')[0]})`;
+      
+      const accDisplayName = document.getElementById('acc-display-name');
+      const accName = document.getElementById('acc-name');
+      const accEmail = document.getElementById('acc-email');
+      const accPhone = document.getElementById('acc-phone');
+      const accAddressBox = document.getElementById('acc-address-box');
+      const accOrdersList = document.getElementById('acc-orders-list');
+      
+      if (accDisplayName) accDisplayName.textContent = state.currentUser.name;
+      if (accName) accName.textContent = state.currentUser.name;
+      if (accEmail) accEmail.textContent = state.currentUser.email;
+      if (accPhone) accPhone.textContent = state.currentUser.phone || 'N/A';
+      
+      if (accAddressBox) {
+        if (state.currentUser.address) {
+          accAddressBox.innerHTML = `
+            <div><strong>City:</strong> ${state.currentUser.city || 'Dubai'}</div>
+            <div><strong>Address:</strong> ${state.currentUser.address}</div>
+          `;
+        } else {
+          accAddressBox.innerHTML = `<span style="color:var(--color-text-dim); font-style:italic">No delivery address saved yet. We will save it on your next checkout.</span>`;
+        }
+      }
+      
+      if (accOrdersList) {
+        const orders = state.currentUser.orders || [];
+        if (orders.length > 0) {
+          accOrdersList.innerHTML = orders.map(o => `
+            <div style="border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0.5rem 0; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <strong style="color:var(--color-gold)">#${o.refNum}</strong>
+                <div style="font-size:0.75rem; color:var(--color-text-dim)">${o.itemsCount} items | ${o.date || 'Just now'}</div>
+              </div>
+              <div style="text-align: right">
+                <div><strong>${o.total}</strong></div>
+                <span style="font-size:0.72rem; padding:1px 6px; border-radius:3px; background:rgba(197,162,89,0.15); color:var(--color-gold)">Placed</span>
+              </div>
+            </div>
+          `).join('');
+        } else {
+          accOrdersList.innerHTML = `<span style="color:var(--color-text-dim); font-style:italic">You haven't placed any orders yet.</span>`;
+        }
+      }
+    } else {
+      if (dot) dot.style.display = 'none';
+      if (mobileLink) mobileLink.innerHTML = `👤 My Account`;
+    }
   }
 
   // ── TOAST ────────────────────────────────────────────────
@@ -417,9 +627,26 @@
     document.getElementById('step-1-summary').style.display = 'none';
     document.getElementById('step-2-form').style.display = 'block';
     document.getElementById('step-2-summary').style.display = 'none';
-    document.getElementById('shipping-name').value = '';
-    document.getElementById('shipping-phone').value = '';
-    document.getElementById('shipping-address').value = '';
+    
+    if (state.currentUser) {
+      document.getElementById('shipping-name').value = state.currentUser.name;
+      document.getElementById('shipping-phone').value = state.currentUser.phone || '';
+      document.getElementById('shipping-address').value = state.currentUser.address || '';
+      const citySelect = document.getElementById('shipping-city');
+      if (citySelect && state.currentUser.city) {
+        citySelect.value = state.currentUser.city;
+      }
+    } else {
+      document.getElementById('shipping-name').value = '';
+      document.getElementById('shipping-phone').value = '';
+      document.getElementById('shipping-address').value = '';
+    }
+    
+    const authPrompt = document.getElementById('checkout-auth-prompt');
+    if (authPrompt) {
+      authPrompt.style.display = state.currentUser ? 'none' : 'block';
+    }
+    
     document.getElementById('card-holder').value = '';
     document.getElementById('card-number').value = '';
     document.getElementById('card-expiry').value = '';
@@ -590,6 +817,23 @@
       document.getElementById('success-phone').textContent = phone;
       document.getElementById('success-city').textContent = city;
       document.getElementById('success-address').textContent = address;
+      
+      if (state.currentUser) {
+        if (!state.currentUser.orders) state.currentUser.orders = [];
+        state.currentUser.orders.unshift({
+          refNum,
+          itemsCount: state.cart.reduce((a, i) => a + i.qty, 0),
+          total: formatPrice(total),
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        });
+        state.currentUser.city = city;
+        state.currentUser.address = address;
+        state.currentUser.phone = phone;
+      }
+      
+      state.cart = [];
+      saveState();
+      updateCartUI();
       showToast('Order placed successfully! 🎉', 'success', '🛍️');
     }, 2000);
   }
@@ -609,9 +853,6 @@
   }
 
   function closeCheckoutSuccess() {
-    state.cart = [];
-    saveState();
-    updateCartUI();
     closeCheckoutModal();
   }
 
@@ -887,6 +1128,7 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
     window.addEventListener('scroll', handleScroll, { passive: true });
+    updateAuthUI();
 
     // Close search results on outside click
     document.addEventListener('click', (e) => {
@@ -918,6 +1160,8 @@
     selectShade, toggleFaq,
     subscribeNewsletter, openMobileMenu, closeMobileMenu,
     switchLabTab,
+    openAuthModal, closeAuthModal, switchAuthView,
+    handleLogin, handleSignup, handleLogout,
     closeCheckoutModal, updateCheckoutSummary, togglePaymentFields,
     formatCardNumber, formatCardExpiry, processCheckout,
     sendOrderWhatsApp, closeCheckoutSuccess,
